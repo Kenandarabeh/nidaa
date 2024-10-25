@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface DeepSleep5Tests : XCTestCase
+@interface DeepSleepTests : XCTestCase
 
 @end
 
-@implementation DeepSleep5Tests
+@implementation DeepSleepTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

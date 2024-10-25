@@ -14,7 +14,7 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
-target 'DeepSleep5' do
+target 'DeepSleep' do
   config = use_native_modules!
 
   use_react_native!(
@@ -23,7 +23,7 @@ target 'DeepSleep5' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'DeepSleep5Tests' do
+  target 'DeepSleepTests' do
     inherit! :complete
     # Pods for testing
   end

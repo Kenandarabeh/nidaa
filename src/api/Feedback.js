@@ -12,9 +12,9 @@ export async function fetchFeebackQuestions(wstoken) {
   return data.items;
 }
 
-//https://deepsleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&moodlewsrestformat=json&wsfunction=mod_feedback_get_items&feedbackid=1
+//https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&moodlewsrestformat=json&wsfunction=mod_feedback_get_items&feedbackid=1
 
-// https://deepsleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&moodlewsrestformat=json&wsfunction=mod_feedback_get_items&courseid=2&feedbackid=1
+// https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&moodlewsrestformat=json&wsfunction=mod_feedback_get_items&courseid=2&feedbackid=1
 
 export async function fetchFeebacks(wstoken, courseid) {
   const params = {

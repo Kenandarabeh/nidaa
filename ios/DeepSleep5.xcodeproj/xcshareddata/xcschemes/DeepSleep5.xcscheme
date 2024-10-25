@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "DeepSleep5.app"
-               BlueprintName = "DeepSleep5"
-               ReferencedContainer = "container:DeepSleep5.xcodeproj">
+               BuildableName = "DeepSleep.app"
+               BlueprintName = "DeepSleep"
+               ReferencedContainer = "container:DeepSleep.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "DeepSleep5Tests.xctest"
-               BlueprintName = "DeepSleep5Tests"
-               ReferencedContainer = "container:DeepSleep5.xcodeproj">
+               BuildableName = "DeepSleepTests.xctest"
+               BlueprintName = "DeepSleepTests"
+               ReferencedContainer = "container:DeepSleep.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DeepSleep5.app"
-            BlueprintName = "DeepSleep5"
-            ReferencedContainer = "container:DeepSleep5.xcodeproj">
+            BuildableName = "DeepSleep.app"
+            BlueprintName = "DeepSleep"
+            ReferencedContainer = "container:DeepSleep.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "DeepSleep5.app"
-            BlueprintName = "DeepSleep5"
-            ReferencedContainer = "container:DeepSleep5.xcodeproj">
+            BuildableName = "DeepSleep.app"
+            BlueprintName = "DeepSleep"
+            ReferencedContainer = "container:DeepSleep.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

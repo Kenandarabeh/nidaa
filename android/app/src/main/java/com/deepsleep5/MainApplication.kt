@@ -1,4 +1,4 @@
-package com.deepsleep5
+package com.DeepSleep
 
 import android.app.Application
 import com.facebook.react.PackageList

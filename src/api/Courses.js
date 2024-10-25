@@ -37,4 +37,4 @@ export async function getEnroledUserCourses(userid, wstoken) {
   return data;
 }
 
-//https://deepsleepb.intelgx.com/webservice/rest/server.php?wstoken=eafdb482b43eb0a21d68be36f3cec5de&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6
+//https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=eafdb482b43eb0a21d68be36f3cec5de&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6
