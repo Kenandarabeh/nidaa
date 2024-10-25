@@ -1,0 +1,41 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/ElMessiri.ttf",
+      "sha1": "c0e225935901677fecbe48d3234cf7dae53b828e"
+    },
+    {
+      "path": "src/assets/fonts/Material-Design-Iconic-Font.ttf",
+      "sha1": "030f09ac12fb86a13f7432a75836b6768b541257"
+    },
+    {
+      "path": "src/assets/fonts/OFL.txt",
+      "sha1": "23c010debbb37e38f5238b7a3cbaba4bcbf7436c"
+    },
+    {
+      "path": "src/assets/fonts/README.txt",
+      "sha1": "2419f324e35bc652ba2b34cee8fea7d927c84313"
+    },
+    {
+      "path": "src/assets/fonts/Tajawal.ttf",
+      "sha1": "1139e55d7b8909acda1b9f3f90e30f7774e93fef"
+    },
+    {
+      "path": "src/assets/fonts/static/ElMessiri-Bold.ttf",
+      "sha1": "3f998f03a24b315237d235b5bfb762f53b15c8d4"
+    },
+    {
+      "path": "src/assets/fonts/static/ElMessiri-Medium.ttf",
+      "sha1": "ab48ee557014fc3cbc56bfa966d5008c471c0617"
+    },
+    {
+      "path": "src/assets/fonts/static/ElMessiri-Regular.ttf",
+      "sha1": "9cefd3b0a4ae95a9143972655fdba0e9aea22eef"
+    },
+    {
+      "path": "src/assets/fonts/static/ElMessiri-SemiBold.ttf",
+      "sha1": "2c50820b88aca9abeb20aba06dea42a2e4b793a1"
+    }
+  ]
+}
