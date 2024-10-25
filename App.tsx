@@ -5,8 +5,7 @@ import { I18nextProvider } from 'react-i18next';
 import store from './src/store';
 import AppNavigator from './src/routes/AppNavigator';
 import i18n from './src/plugins/i18n';
-import { AppRegistry } from 'react-native';
-import { name } from './app.json';
+
 
 const App = () => {
   return (
