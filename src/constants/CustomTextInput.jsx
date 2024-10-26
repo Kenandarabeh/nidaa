@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, StyleSheet, Image } from 'react-native';
+import SvgIcon from '../assets/images/SvgIcon';
 
 const CustomTextInput = ({ iconSource, placeholder, value, onChangeText, onFocus, onBlur, editable, secureTextEntry }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -23,7 +24,7 @@ const CustomTextInput = ({ iconSource, placeholder, value, onChangeText, onFocus
         editable={editable}
         secureTextEntry={secureTextEntry}
       />
-      <Image source={iconSource} style={styles.icon} />
+      <SvgIcon icon={'email'} width="24" height="24" marginRight={20} style={styles.icon}  />
     </View>
   );
 };
@@ -33,9 +34,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 15,
     width: '100%',
-    height: 60,
+    height: 65,
     marginVertical: 10,
     fontSize: 16,
     borderWidth: 2,
@@ -45,13 +46,10 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     paddingRight: 20,
-    backgroundColor: 'white',
     color: 'gray',
     textAlign: 'right',
   },
   icon: {
-    width: 24,
-    height: 24,
     marginRight: 15,
   },
   borderActive: {

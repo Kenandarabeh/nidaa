@@ -42,6 +42,8 @@ const LoginScreen = () => {
   };
 
   const forgetPassword = () => {
+    navigation.navigate('ForgotPassword');
+
   };
 
   return (
@@ -70,7 +72,7 @@ const LoginScreen = () => {
             secureTextEntry
           />
           <TouchableOpacity onPress={forgetPassword} style={styles.forgetPassword}>
-            <CustomText style={styles.signUpLabel}>{t('Forget your password ?')}</CustomText>
+            <CustomText  style={styles.signUpLabel}>{t('Forget your password ?')}</CustomText>
           </TouchableOpacity>
           <CustomButton onPress={doLogin} style={styles.btn} textStyle={styles.btnText}>
             {t('Login')}
