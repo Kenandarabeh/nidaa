@@ -137,10 +137,3 @@ export async function getLessonPossibleJumps(lessonId, wstoken) {
 }
 // get content page =>https://DeepSleepb.intelgx.com//webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_get_lesson_contents&moodlewsrestformat=json&lessonid=1&pageid=3
 
-// get slots => https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_get_schedules_by_courseid&moodlewsrestformat=json&courseid=4
-
-
-// book to slot by id => https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_scheduler_book_by_slotid&moodlewsrestformat=json&slotid=70
-
-
-// cancel book slot by slot id =>https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_scheduler_cancel_booking&moodlewsrestformat=json&slotid=70

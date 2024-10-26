@@ -1,11 +1,16 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import {TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
 import CustomText from '../constants/CustomText'; // تأكد من تعديل المسار حسب الحاجة
 
-const CustomButton = ({ onPress, style, textStyle, children }) => {
+const CustomButton = ({onPress, style, textStyle, children, loading}) => {
   return (
     <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
-      <CustomText style={[styles.buttonText, textStyle]}>{children}</CustomText>
+      {!loading && (
+        <CustomText style={[styles.buttonText, textStyle]}>
+          {children}
+        </CustomText>
+      )}
+      {loading && <ActivityIndicator style={styles.activityIndicator} />}
     </TouchableOpacity>
   );
 };
@@ -15,7 +20,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderRadius: 15,
     fontSize: 20,
-    backgroundColor: "rgba(0, 49, 67, 1)",
+    backgroundColor: 'rgba(0, 49, 67, 1)',
     height: 62,
     width: '100%',
     marginTop: 10,
@@ -27,6 +32,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     textAlign: 'center', // تأكد من أن النص يكون في المنتصف
+  },
+  activityIndicator: {
+    color: 'white',
   },
 });
 

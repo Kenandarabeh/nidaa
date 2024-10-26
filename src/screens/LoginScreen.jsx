@@ -1,21 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet, ImageBackground } from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
-import { user_login, getUserProfile } from '../api/User';
-import { sesskey } from '../config/sesskey';
-import starsImage from '../assets/images/stars_2.png';
+import {useNavigation} from '@react-navigation/native';
+import {user_login, getUserProfile} from '../api/User';
+import {sesskey} from '../config/sesskey';
 import emailIcon from '../assets/icons/password.png';
 import lockIcon from '../assets/icons/password.png';
-import LinearGradient from 'react-native-linear-gradient';
 import CustomTextInput from '../constants/CustomTextInput';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import CustomText from '../constants/CustomText';
 import Backgound from '../constants/Backgound';
 import CustomButton from '../constants/CustomButton';
 
 const LoginScreen = () => {
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const [email, setEmail] = useState('laibout');
   const [password, setPassword] = useState('D33p_Sleep');
   const [emailFocused, setEmailFocused] = useState(false);
@@ -43,11 +41,10 @@ const LoginScreen = () => {
 
   const forgetPassword = () => {
     navigation.navigate('ForgotPassword');
-
   };
 
   return (
-<Backgound>
+    <Backgound>
       <View style={styles.layoutPage}>
         <View style={styles.form}>
           <CustomText style={styles.title}>{t('Login')}</CustomText>
@@ -71,16 +68,23 @@ const LoginScreen = () => {
             editable={!isLoading}
             secureTextEntry
           />
-          <TouchableOpacity onPress={forgetPassword} style={styles.forgetPassword}>
-            <CustomText  style={styles.signUpLabel}>{t('Forget your password ?')}</CustomText>
+          <TouchableOpacity
+            onPress={forgetPassword}
+            style={styles.forgetPassword}>
+            <CustomText style={styles.signUpLabel}>
+              {t('Forget your password ?')}
+            </CustomText>
           </TouchableOpacity>
-          <CustomButton onPress={doLogin} style={styles.btn} textStyle={styles.btnText}>
+          <CustomButton
+            onPress={doLogin}
+            style={styles.btn}
+            textStyle={styles.btnText}
+            loading={isLoading}>
             {t('Login')}
           </CustomButton>
           <TouchableOpacity onPress={register}>
             <CustomText style={styles.signUpLabel}>{t('Register')}</CustomText>
           </TouchableOpacity>
-          {isLoading && <ActivityIndicator style={styles.activityIndicator} />}
         </View>
         <View style={styles.logoContainer}></View>
       </View>
@@ -142,9 +146,7 @@ const styles = StyleSheet.create({
     padding: 10,
     color: 'white',
   },
-  activityIndicator: {
-    color: 'white',
-  },
+
   logoContainer: {
     marginTop: 50,
   },
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     borderRadius: 15,
     fontSize: 20,
-    backgroundColor: "rgba(0, 49, 67, 1)",
+    backgroundColor: 'rgba(0, 49, 67, 1)',
     height: 62,
     width: 340,
     marginTop: 10,

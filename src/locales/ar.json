@@ -1,5 +1,6 @@
 {
   "welcome_message": "مرحبا بك في تطبيق مودل",
+  "Book": "حجز موعد",
   "password": "كلمة السر",
   "Sign Up": "تسجيل حساب",
   "Logging in...": "دخول ...",
@@ -21,6 +22,10 @@
   "Username": "إسم المستعمل",
   "Confirm Password": "تأكيد كلمة المرور",
   "Already have an account": "لديك حساب ؟ ",
+  "day": "اليوم",
+  "Your booking has been successfully confirmed!": "تم حجز موعدك بنجاح",
+  "back to main menu": "العودة إلى الصفحة الرئيسة",
+  "timeslot": "الموعد",
   "Take sleep quiz": "قيم جودة نومك",
   "New to DeepSleep": "إنشاء حساب",
   "Improve your health with a better sleep Join our courses for better sleep": "نوم صحي لحياة أفضل: انضم الآن إلى دورات تحسين النوم",
@@ -63,6 +68,6 @@
   "I Want to Sleep Now": "أريد أن أنام الأن",
   "Payment has been successful.": "لقد تم الدفع بالنجاح",
   "sleep quality": "جودة نومك",
-  "Book an appointment":"حجز الموعد",
-  "Hello Salah ":"مرحبا صلاح"
+  "Book an appointment": "حجز الموعد",
+  "Hello Salah ": "مرحبا صلاح"
 }
