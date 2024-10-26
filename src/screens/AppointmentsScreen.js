@@ -34,6 +34,8 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
     const [items, setItems] = useState([]);
     const [loading , setLoading ]=useState(false);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalConfirmationType,setModalConfirmationType]=useState("success")
+    const [confirmationMessage,setConfirmationMessage]=useState("Your booking has been successfully confirmed!")
 
   useEffect(() => {
     DropDownPicker.setLanguage("AR");
@@ -60,7 +62,9 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
 
   const bookSlot= async (slotId)=>{
     if (!timeValue) {
-        console.error('No time slot selected');
+        setConfirmationMessage("Fail to book Appointment")
+        setModalConfirmationType("fail")
+        setModalVisible(true)
         return;
       }
     let bookingStatus
@@ -75,7 +79,9 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
         setModalVisible(true)
     }
   } catch (error) {
-    console.error('Error booking slots:', error)
+    setModalConfirmationType("fail")
+    setModalVisible(true)
+    
   }
   }
   return (
@@ -135,7 +141,7 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)} 
       >
-        <UIConfirmation  message={t("Your booking has been successfully confirmed!")} buttonText={t("back to main menu") } navigationRoute={"Details"} />
+        <UIConfirmation type={modalConfirmationType} message={t(confirmationMessage)} buttonText={t("back to main menu") } navigationRoute={"Details"} />
       </Modal>
     </Backgound>
   )

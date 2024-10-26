@@ -5,15 +5,18 @@ import Backgound from '../../constants/Backgound';
 import CustomButton from '../../constants/CustomButton';
 import LottieView from "lottie-react-native";
 
-
-const UIConfirmation = ({ message, buttonText, navigationRoute }) => {
+// ../../assets/animation/Success.json"
+// ../../assets/animation/Fail.json"
+const UIConfirmation = ({ message, buttonText, navigationRoute ,type}) => {
   const navigation = useNavigation();
-
+  const animationSource = type === "success" 
+    ? require("../../assets/animation/Success.json")  
+    : require("../../assets/animation/Faild.json")
   return (
     <Backgound >
         <View style={styles.container} >
           <LottieView
-      source={require("../../assets/animation/success.json")}
+      source={animationSource}
       style={{width: "50%", height: "50%"}}
       loop={false}
       autoPlay
