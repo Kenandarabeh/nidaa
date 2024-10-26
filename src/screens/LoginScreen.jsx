@@ -30,7 +30,7 @@ const LoginScreen = () => {
         await AsyncStorage.setItem(sesskey, user_info.userprivateaccesskey);
         console.log('user', user_info);
       }
-      navigation.navigate('Details');
+      navigation.navigate('Appointmments');
     }
     setIsLoading(false);
   };

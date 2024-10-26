@@ -22,7 +22,7 @@ const DeepSleepTheme = {
 export default function AppNavigator() {
   return (
     <NavigationContainer theme={DeepSleepTheme}>
-      <Stack.Navigator initialRouteName="Appointmments">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Appointmments"
           component={AppointmentsScreen}
