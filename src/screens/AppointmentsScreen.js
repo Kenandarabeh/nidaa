@@ -118,6 +118,8 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
           <Text style={styles.title}>{t('Appointment Confirmed')}</Text>
         )}
 
+<View  style={styles.footer}>
+
 <CustomButton
               onPress={bookSlot}
               style={styles.btn}
@@ -125,6 +127,7 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
             >
               {t('Book')}
             </CustomButton>
+</View>
     </View>
     <Modal
         animationType="slide"
@@ -141,8 +144,9 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
 export default AppointmentsScreen
 
 const styles = StyleSheet.create({
-  container: {flex: 1,justifyContent: 'center',alignItems: 'center',paddingBottom:10},
+  container: {flex: 1,justifyContent: 'center',alignItems: 'center',},
   dropDownContainer:{padding:10,flex:0.4,justifyContent:"flex-end"},
-  btn:{marginTop:"auto",width:"90%"},
-  title:{fontSize:30 ,fontFamily:"Tajawal-Medium" ,textAlign:'center' ,marginBottom:15,color:"white"}
+  btn:{backgroundColor:"#3498db"},
+  title:{fontSize:30 ,fontFamily:"Tajawal-Medium" ,textAlign:'center' ,marginBottom:15,color:"white"},
+  footer:{marginTop:"auto" ,width:"100%" ,height:100, backgroundColor: '#003143',padding:10 ,paddingBottom:5}
 })
