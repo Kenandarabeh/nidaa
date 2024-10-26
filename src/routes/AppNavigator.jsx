@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DetailsScreen from '../screens/DetailsScreen';
@@ -8,6 +8,7 @@ import ResetPassword from '../screens/ResetPassword';
 import ForgotPassword from '../screens/ForgotPassword';
 import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
+import useAuthStore from '../store/authStore';
 
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
@@ -20,44 +21,51 @@ const DeepSleepTheme = {
 };
 
 export default function AppNavigator() {
+  const initializeAuth = useAuthStore(state => state.initializeAuth);
+  // TO DO add loading component
+  useEffect(() => {
+    initializeAuth();
+  }, []);
   return (
     <NavigationContainer theme={DeepSleepTheme}>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen
-          name="Appointmments"
-          component={AppointmentsScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Signup"
-          component={SignupScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="ResetPassword"
-          component={ResetPassword}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="ForgotPassword"
-          component={ForgotPassword}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="EnterOtp"
-          component={EnterOtp}
-          options={{headerShown: false}}
-        />
+      <Stack.Navigator initialRouteName={isAuth ? 'Appointments' : 'Login'}>
+        {isAuth ? (
+          <>
+            <Stack.Screen
+              name="Appointments"
+              component={AppointmentsScreen}
+              options={{headerShown: false}}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={SignupScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ForgotPassword"
+              component={ForgotPassword}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ResetPassword"
+              component={ResetPassword}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="EnterOtp"
+              component={EnterOtp}
+              options={{headerShown: false}}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 import CustomText from '../constants/CustomText';
 import Backgound from '../constants/Backgound';
 import CustomButton from '../constants/CustomButton';
-
+import useAuthStore from '../store/authStore';
 const LoginScreen = () => {
   const {t} = useTranslation();
   const [email, setEmail] = useState('laibout');
@@ -20,15 +20,14 @@ const LoginScreen = () => {
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
-
+  const setAuth = useAuthStore(state => state.setAuth);
   const doLogin = async () => {
     setIsLoading(true);
     const moodle_ws_token = await user_login(email, password);
     if (moodle_ws_token) {
-      const user_info = await getUserProfile(moodle_ws_token);
-      if (user_info) {
-        await AsyncStorage.setItem(sesskey, user_info.userprivateaccesskey);
-        console.log('user', user_info);
+      const {userprivateaccesskey} = await getUserProfile(moodle_ws_token);
+      if (userprivateaccesskey) {
+        setAuth(moodle_ws_token, userprivateaccesskey);
       }
       navigation.navigate('Appointmments');
     }
