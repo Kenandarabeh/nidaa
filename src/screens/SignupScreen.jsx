@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { user_signup } from '../api/User';
-import Backgound from '../constants/Backgound';
+import Backgound from '../constants/Background';
 import CustomText from '../constants/CustomText';
 import { useTranslation } from 'react-i18next';
 import CustomTextInput from '../constants/CustomTextInput';

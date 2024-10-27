@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Backgound from '../../constants/Backgound';
+import Backgound from '../../constants/Background';
 import CustomButton from '../../constants/CustomButton';
 import LottieView from "lottie-react-native";
 

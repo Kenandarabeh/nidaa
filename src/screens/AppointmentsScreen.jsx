@@ -1,120 +1,92 @@
-import {StyleSheet, Text, View, Modal} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {
-  createBooking,
-  cancelBooking,
-  getSchedulesByCourse,
-} from '../api/Booking';
+import { StyleSheet, Text, View, Modal, TouchableOpacity, SectionList } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { cancelBooking, createBooking, getSchedulesByCourse } from '../api/Booking';
 import CustomButton from '../constants/CustomButton';
-import DropDownPicker from 'react-native-dropdown-picker';
-import Backgound from '../constants/Backgound';
-import {useTranslation} from 'react-i18next';
-import {useNavigation} from '@react-navigation/native';
+import Background from '../constants/Background';
+import { useTranslation } from 'react-i18next';
 import UIConfirmation from '../components/commun/UIConfirmation';
 import useAuthStore from '../store/authStore';
-import { Dropdown } from 'react-native-element-dropdown';
-const getBookingSlots = async (cid, wstoken) => {
-  try {
-    const slots = await getSchedulesByCourse(cid, wstoken);
-    return slots;
-  } catch (error) {
-    console.error('Error fetching booking slots:', error);
-  }
-};
-const data = [
-  { label: 'Item 1', value: '1' },
-  { label: 'Item 2', value: '2' },
-  { label: 'Item 3', value: '3' },
-  { label: 'Item 4', value: '4' },
-  { label: 'Item 5', value: '5' },
-  { label: 'Item 6', value: '6' },
-  { label: 'Item 7', value: '7' },
-  { label: 'Item 8', value: '8' },
-];
+import sectionListFormat from '../utils/helpers/sectionListFormatter';
 
-const AppointmentsScreen = ({courseid = 4}) => {
-  // navigation provider should be used  instead of importing it everytime on all components
-  const navigation = useNavigation();
-  const {t} = useTranslation();
-  const [appointment, setAppointmentStatue] = useState({status: null});
-  const [openDate, setOpenDate] = useState(false);
-  const [openTime, setOpenTime] = useState(false);
-  const [value, setValue] = useState(null);
+const AppointmentsScreen = ({ courseid = 4 }) => {
+  const { t } = useTranslation();
   const [timeSlots, setTimeSlots] = useState([]);
-  const [dateValue, setDateValue] = useState(null);
-  const [timeValue, setTimeValue] = useState(null);
-  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalConfirmationType, setModalConfirmationType] = useState('success');
-  const [confirmationMessage, setConfirmationMessage] = useState(
-    'Your booking has been successfully confirmed!',
-  );
-  const wstoken = useAuthStore.getState(state => state.wstoken);
+  const [confirmationMessage, setConfirmationMessage] = useState('Your booking has been successfully confirmed!');
+  const wstoken = useAuthStore.getState().wstoken;
+
   useEffect(() => {
-    DropDownPicker.setLanguage('AR');
-    //TO DO check appointement status
     const fetchBookingSlots = async () => {
       try {
-        const slots = await getBookingSlots(courseid, wstoken);
-        setTimeSlots(slots);
+        const slots = await getSchedulesByCourse(courseid, wstoken);
+        console.log("slots", slots.length);
+        
+        // Transform the slots into a SectionList format
+        const groupedSlots = sectionListFormat(slots);
+
+        setTimeSlots(Object.values(groupedSlots));
       } catch (error) {
         console.error('Error fetching token or booking slots:', error);
       }
     };
 
     fetchBookingSlots();
-  }, [courseid]);
+  }, [courseid, wstoken]);
 
-  const bookSlot = async slotId => {
-    if (!timeValue) {
+  const bookSlot = async (id) => {
+    if (!id) {
       setConfirmationMessage('Fail to book Appointment');
       setModalConfirmationType('fail');
       setModalVisible(true);
       return;
     }
-    let bookingStatus;
-    console.log('item', value); //im using value directly for testing , pass slotId after selection
+
     setLoading(true);
     try {
-      bookingStatus = await createBooking(value, wstoken);
-
-      if (bookingStatus) {
-        setLoading(false);
-        setModalVisible(true);
+      // to test cancel booking
+      if (timeSlots.length === 1) {
+        await cancelBooking(id, wstoken);
+      } else {
+        const bookingStatus = await createBooking(id, wstoken);
+        if (bookingStatus) {
+          setModalVisible(true);
+        }
       }
     } catch (error) {
       setModalConfirmationType('fail');
       setModalVisible(true);
+    } finally {
+      setLoading(false);
     }
   };
+
   return (
-    <Backgound>
+    <Background>
       <View style={styles.container}>
-        {appointment.status === null ? (
-          <View style={styles.dropDownContainer}>
-            <Text style={styles.title}>{t('Book')}</Text>
-            <Dropdown
-        style={styles.dropdown}
-        placeholderStyle={styles.placeholderStyle}
-        selectedTextStyle={styles.selectedTextStyle}
-        inputSearchStyle={styles.inputSearchStyle}
-        iconStyle={styles.iconStyle}
-        data={data}
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder={t("date")}
-        
-        value={value}
-        onChange={item => {
-          setValue(item.value);
-        }}
-      />
-          </View>
-        ) : (
-          <Text style={styles.title}>{t('Appointment Confirmed')}</Text>
-        )}
+        <View style={styles.list}>
+          <SectionList
+            sections={timeSlots}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                onPress={() => bookSlot(item.id)}
+                style={styles.item}
+              >
+                <Text style={styles.title}>
+                  {`${item.start_time} - ${item.end_time}`}
+                </Text>
+              </TouchableOpacity>
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              <View style={styles.headerContainer}>
+                <Text style={styles.header}>{title}</Text>
+              </View>
+            )}
+            stickySectionHeadersEnabled={false}
+          />
+        </View>
 
         <View style={styles.footer}>
           <CustomButton onPress={bookSlot} style={styles.btn} loading={loading}>
@@ -122,11 +94,13 @@ const AppointmentsScreen = ({courseid = 4}) => {
           </CustomButton>
         </View>
       </View>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={() => setModalVisible(!modalVisible)}>
+        onRequestClose={() => setModalVisible(!modalVisible)}
+      >
         <UIConfirmation
           type={modalConfirmationType}
           message={t(confirmationMessage)}
@@ -134,74 +108,56 @@ const AppointmentsScreen = ({courseid = 4}) => {
           navigationRoute={'Login'}
         />
       </Modal>
-    </Backgound>
+    </Background>
   );
 };
 
 export default AppointmentsScreen;
 
 const styles = StyleSheet.create({
-
-
-  btn: {backgroundColor: '#3498db'},
+  container: {
+    flex: 1,
+    backgroundColor: "transparent", 
+    flexDirection: 'column',
+  },
+  headerContainer: {
+    backgroundColor: '#016143', 
+    padding: 5,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  header: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: "white",
+  },
+  list: {
+    flex: 1, 
+    margin: 5,
+    marginTop: 40,
+  },
+  item: {
+    padding: 16,
+    backgroundColor: '#FFFFFF', 
+    borderRadius: 10,
+    marginVertical: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 1,
+  },
   title: {
-    fontSize: 30,
-    fontFamily: 'Tajawal-Medium',
-    textAlign: 'center',
-    marginBottom: 15,
-    color: 'white',
+    fontSize: 18,
+    color: '#333', 
+    textAlign: "center"
   },
   footer: {
-    marginTop: 'auto',
-    width: '100%',
-    height: 100,
-    backgroundColor: '#003143',
+    backgroundColor: '#003143', 
     padding: 10,
-    paddingBottom: 5,
   },
-
-  
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    dropdown: {
-      height: 50,
-      borderColor: 'gray',
-      borderWidth: 0.5,
-      borderRadius: 8,
-      paddingHorizontal: 8,
-    },
-    icon: {
-      marginRight: 5,
-    },
-    label: {
-      position: 'absolute',
-      backgroundColor: 'white',
-      left: 22,
-      top: 8,
-      zIndex: 999,
-      paddingHorizontal: 8,
-      fontSize: 14,
-    },
-    placeholderStyle: {
-      fontSize: 16,
-    },
-    selectedTextStyle: {
-      fontSize: 16,
-    },
-    iconStyle: {
-      width: 20,
-      height: 20,
-    },
-    inputSearchStyle: {
-      height: 40,
-      fontSize: 16,
-    },
+  btn: {
+    backgroundColor: '#3498db', 
+    borderRadius: 10,
+    padding: 16,
+  },
 });

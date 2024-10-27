@@ -3,7 +3,7 @@ import { View, StyleSheet, ImageBackground } from 'react-native';
 import starsImage from '../assets/images/stars_2.png';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Backgound = ({ children, style }) => {
+const Background = ({ children, style }) => {
   return (
       <LinearGradient
         colors={['rgba(0, 49, 67, 1)', '#0088bb']}
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Backgound;
+export default Background;

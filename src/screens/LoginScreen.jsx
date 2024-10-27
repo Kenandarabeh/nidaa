@@ -6,11 +6,10 @@ import lockIcon from '../assets/icons/password.png';
 import CustomTextInput from '../constants/CustomTextInput';
 import {useTranslation} from 'react-i18next';
 import CustomText from '../constants/CustomText';
-import Backgound from '../constants/Backgound';
+import Backgound from '../constants/Background';
 import CustomButton from '../constants/CustomButton';
 import useAuthStore from '../store/authStore';
 const LoginScreen = ({navigation}) => {
-  console.log("navigation",navigation);
   const {t} = useTranslation();
   const [email, setEmail] = useState('laibout');
   const [password, setPassword] = useState('D33p_Sleep');

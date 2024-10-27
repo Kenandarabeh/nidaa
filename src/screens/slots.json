@@ -2,11 +2,16 @@
   {
     "attended": null,
     "date": "2024-10-28",
-    "duration": 60,
-    "end_time": "10:00:00",
-    "id": 52,
-    "start_time": "09:00:00",
-    "teacherid": 5
+   "slot":[{    "end_time": "11:10:00",
+   "id": 53,
+   "start_time": "10:10:00",
+   "teacherid": 5},{    "end_time": "11:10:00",
+   "id": 53,
+   "start_time": "10:10:00",
+   "teacherid": 5},{    "end_time": "11:10:00",
+   "id": 53,
+   "start_time": "10:10:00",
+   "teacherid": 5}]
   },
   {
     "attended": null,

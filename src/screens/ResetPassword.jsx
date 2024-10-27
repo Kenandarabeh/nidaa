@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import Background from '../constants/Backgound'; // Correct the spelling from 'Backgound'
+import Background from '../constants/Background'; // Correct the spelling from 'Backgound'
 import CustomText from '../constants/CustomText';
 import CustomTextInput from '../constants/CustomTextInput';
 import CustomButton from '../constants/CustomButton';
