@@ -22,6 +22,7 @@ const DeepSleepTheme = {
 
 export default function AppNavigator() {
   const initializeAuth = useAuthStore(state => state.initializeAuth);
+  const isAuth = useAuthStore(state => state.isAuth);
   // TO DO add loading component
   useEffect(() => {
     initializeAuth();
@@ -34,6 +35,11 @@ export default function AppNavigator() {
             <Stack.Screen
               name="Appointments"
               component={AppointmentsScreen}
+              options={{headerShown: false}}
+            />
+             <Stack.Screen
+              name="Login"
+              component={LoginScreen}
               options={{headerShown: false}}
             />
           </>

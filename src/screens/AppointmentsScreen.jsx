@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next';
 import {useNavigation} from '@react-navigation/native';
 import UIConfirmation from '../components/commun/UIConfirmation';
 import useAuthStore from '../store/authStore';
+import { Dropdown } from 'react-native-element-dropdown';
 const getBookingSlots = async (cid, wstoken) => {
   try {
     const slots = await getSchedulesByCourse(cid, wstoken);
@@ -20,6 +21,16 @@ const getBookingSlots = async (cid, wstoken) => {
     console.error('Error fetching booking slots:', error);
   }
 };
+const data = [
+  { label: 'Item 1', value: '1' },
+  { label: 'Item 2', value: '2' },
+  { label: 'Item 3', value: '3' },
+  { label: 'Item 4', value: '4' },
+  { label: 'Item 5', value: '5' },
+  { label: 'Item 6', value: '6' },
+  { label: 'Item 7', value: '7' },
+  { label: 'Item 8', value: '8' },
+];
 
 const AppointmentsScreen = ({courseid = 4}) => {
   // navigation provider should be used  instead of importing it everytime on all components
@@ -83,31 +94,23 @@ const AppointmentsScreen = ({courseid = 4}) => {
         {appointment.status === null ? (
           <View style={styles.dropDownContainer}>
             <Text style={styles.title}>{t('Book')}</Text>
-            <DropDownPicker
-              schema={{label: 'date', value: 'id'}}
-              zIndex={3000}
-              placeholder={t('day')}
-              placeholderStyle={{color: 'grey', fontFamily: 'Tajawal'}}
-              open={openDate}
-              value={dateValue}
-              items={timeSlots}
-              setOpen={setOpenDate}
-              setValue={setDateValue}
-              setItems={setItems}
-            />
-            <DropDownPicker
-              style={{marginTop: 10}}
-              schema={{label: 'start_time', value: 'id'}}
-              zIndex={2000}
-              placeholder={t('timeslot')}
-              placeholderStyle={{color: 'grey', fontFamily: 'Tajawal'}}
-              open={openTime}
-              value={timeValue}
-              items={timeSlots}
-              setOpen={setOpenTime}
-              setValue={setTimeValue}
-              setItems={setItems}
-            />
+            <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={data}
+        maxHeight={300}
+        labelField="label"
+        valueField="value"
+        placeholder={t("date")}
+        
+        value={value}
+        onChange={item => {
+          setValue(item.value);
+        }}
+      />
           </View>
         ) : (
           <Text style={styles.title}>{t('Appointment Confirmed')}</Text>
@@ -128,7 +131,7 @@ const AppointmentsScreen = ({courseid = 4}) => {
           type={modalConfirmationType}
           message={t(confirmationMessage)}
           buttonText={t('back to main menu')}
-          navigationRoute={'Details'}
+          navigationRoute={'Login'}
         />
       </Modal>
     </Backgound>
@@ -138,8 +141,8 @@ const AppointmentsScreen = ({courseid = 4}) => {
 export default AppointmentsScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  dropDownContainer: {padding: 10, flex: 0.4, justifyContent: 'flex-end'},
+
+
   btn: {backgroundColor: '#3498db'},
   title: {
     fontSize: 30,
@@ -156,4 +159,49 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 5,
   },
+
+  
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    dropdown: {
+      height: 50,
+      borderColor: 'gray',
+      borderWidth: 0.5,
+      borderRadius: 8,
+      paddingHorizontal: 8,
+    },
+    icon: {
+      marginRight: 5,
+    },
+    label: {
+      position: 'absolute',
+      backgroundColor: 'white',
+      left: 22,
+      top: 8,
+      zIndex: 999,
+      paddingHorizontal: 8,
+      fontSize: 14,
+    },
+    placeholderStyle: {
+      fontSize: 16,
+    },
+    selectedTextStyle: {
+      fontSize: 16,
+    },
+    iconStyle: {
+      width: 20,
+      height: 20,
+    },
+    inputSearchStyle: {
+      height: 40,
+      fontSize: 16,
+    },
 });

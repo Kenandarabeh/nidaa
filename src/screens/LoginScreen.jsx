@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation} from '@react-navigation/native';
 import {user_login, getUserProfile} from '../api/User';
-import {sesskey} from '../config/sesskey';
 import emailIcon from '../assets/icons/password.png';
 import lockIcon from '../assets/icons/password.png';
 import CustomTextInput from '../constants/CustomTextInput';
@@ -12,14 +9,14 @@ import CustomText from '../constants/CustomText';
 import Backgound from '../constants/Backgound';
 import CustomButton from '../constants/CustomButton';
 import useAuthStore from '../store/authStore';
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
+  console.log("navigation",navigation);
   const {t} = useTranslation();
   const [email, setEmail] = useState('laibout');
   const [password, setPassword] = useState('D33p_Sleep');
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const navigation = useNavigation();
   const setAuth = useAuthStore(state => state.setAuth);
   const doLogin = async () => {
     setIsLoading(true);
@@ -28,8 +25,9 @@ const LoginScreen = () => {
       const {userprivateaccesskey} = await getUserProfile(moodle_ws_token);
       if (userprivateaccesskey) {
         setAuth(moodle_ws_token, userprivateaccesskey);
+        navigation.navigate('Appointments')
       }
-      navigation.navigate('Appointmments');
+      
     }
     setIsLoading(false);
   };

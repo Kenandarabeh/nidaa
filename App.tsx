@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import 'react-native-gesture-handler';
 import { I18nextProvider } from 'react-i18next';
 import store from './src/store';
 import AppNavigator from './src/routes/AppNavigator';
