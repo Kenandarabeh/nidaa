@@ -9,7 +9,6 @@ import useAuthStore from '../store/authStore';
 import sectionListFormat from '../utils/helpers/sectionListFormatter';
 import ScheduleSlotsList from '../components/schedule/ScheduleSlotsList';
 import ScheduleDetails from '../components/schedule/ScheduleDetails';
-
 import { useConfirmation } from '../components/commun/Confirm';
 
 const AppointmentsScreen = ({ courseid = 4 }) => {
