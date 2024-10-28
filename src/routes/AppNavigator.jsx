@@ -9,6 +9,7 @@ import ForgotPassword from '../screens/ForgotPassword';
 import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
 import useAuthStore from '../store/authStore';
+import OnBoardingScreen from '../screens/OnBoardingScreen';
 
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
@@ -40,6 +41,11 @@ export default function AppNavigator() {
              <Stack.Screen
               name="Login"
               component={LoginScreen}
+              options={{headerShown: false}}
+            />
+              <Stack.Screen
+              name="OnBoarding"
+              component={OnBoardingScreen}
               options={{headerShown: false}}
             />
           </>

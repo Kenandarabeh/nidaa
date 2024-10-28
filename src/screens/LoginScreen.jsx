@@ -24,7 +24,7 @@ const LoginScreen = ({navigation}) => {
       const {userprivateaccesskey} = await getUserProfile(moodle_ws_token);
       if (userprivateaccesskey) {
         setAuth(moodle_ws_token, userprivateaccesskey);
-        navigation.navigate('Appointments')
+        navigation.navigate('OnBoarding')
       }
       
     }

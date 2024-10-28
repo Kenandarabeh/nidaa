@@ -58,7 +58,9 @@ export async function submitLessonAnswer(
   lessonId,
   pageId,
   answerId,
-  wstoken
+  wstoken,
+  qtype,
+  answerformat,
 ) {
   const params = {
     lessonid: lessonId,
@@ -69,8 +71,8 @@ export async function submitLessonAnswer(
         value: sesskey,
       },
       {
-        name: "_qf__lesson_display_answer_form_multichoice_singleanswer",
-        value: "1",
+        name: qtype,
+        value: answerformat,
       },
       {
         name: "answerid",
