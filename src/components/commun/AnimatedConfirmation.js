@@ -7,7 +7,7 @@ import LottieView from "lottie-react-native";
 
 // ../../assets/animation/Success.json"
 // ../../assets/animation/Fail.json"
-const UIConfirmation = ({ message, buttonText, navigationRoute ,type}) => {
+const AnimatedConfirmation = ({ message, buttonText, navigationRoute ,type}) => {
   const navigation = useNavigation();
   const animationSource = type === "success" 
     ? require("../../assets/animation/Success.json")  
@@ -32,7 +32,7 @@ const UIConfirmation = ({ message, buttonText, navigationRoute ,type}) => {
   );
 };
 
-export default UIConfirmation;
+export default AnimatedConfirmation;
 
 const styles = StyleSheet.create({
   container: {

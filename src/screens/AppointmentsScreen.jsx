@@ -4,12 +4,16 @@ import { cancelBooking, createBooking, getSchedulesByCourse } from '../api/Booki
 import CustomButton from '../constants/CustomButton';
 import Background from '../constants/Background';
 import { useTranslation } from 'react-i18next';
-import UIConfirmation from '../components/commun/UIConfirmation';
+import AnimatedConfirmation from '../components/commun/AnimatedConfirmation';
 import useAuthStore from '../store/authStore';
 import sectionListFormat from '../utils/helpers/sectionListFormatter';
 import ScheduleSlotsList from '../components/schedule/ScheduleSlotsList';
 import ScheduleDetails from '../components/schedule/ScheduleDetails';
+
+import { useConfirmation } from '../components/commun/Confirm';
+
 const AppointmentsScreen = ({ courseid = 4 }) => {
+  const showConfirmation = useConfirmation();
   const { t } = useTranslation();
   const [timeSlots, setTimeSlots] = useState([]);
   const [slotId,setSlotId]=useState();
@@ -22,6 +26,7 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
   useEffect(() => {
     const fetchBookingSlots = async () => {
       try {
+       
         const slots = await getSchedulesByCourse(courseid, wstoken);
         console.log("slots", slots);
         // Transform the slots into a SectionList format
@@ -35,7 +40,7 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
     fetchBookingSlots();
   }, [courseid, wstoken,timeSlots.length]);
 
-  const bookSlot = async () => {
+  const bookSlot =  () => {
     if (!slotId) {
       setConfirmationMessage('Fail to book Appointment');
       setModalConfirmationType('fail');
@@ -44,12 +49,12 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
     }
     setLoading(true);
     try {
-    
+      showConfirmation('Are you sure you want to book this slot?', async () => {
         const bookingStatus = await createBooking(slotId, wstoken);
         if (bookingStatus) {
           setModalVisible(true);
-      
       }
+      });
     } catch (error) {
       setModalConfirmationType('fail');
       setModalVisible(true);
@@ -57,11 +62,14 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
       setLoading(false);
     }
   };
-  const cancelSchudule=async ()=>{
+  const cancelSchudule= ()=>{
     let id = timeSlots[0].data[0].id // grab booked slotId 
         console.log("id",id);
-        await cancelBooking(id, wstoken);
+        showConfirmation('Are you sure you want to cancel your booking?', async () => {
+          await cancelBooking(id, wstoken);
         setTimeSlots([]) // to trigger rerender
+        }
+      )
   }
 
   return (
@@ -89,7 +97,7 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(!modalVisible)}
       >
-        <UIConfirmation
+        <AnimatedConfirmation
           type={modalConfirmationType}
           message={t(confirmationMessage)}
           buttonText={t('back to main menu')}
