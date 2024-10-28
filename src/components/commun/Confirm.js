@@ -42,12 +42,13 @@ export const ConfirmationProvider = ({ children }) => {
           <View style={styles.modalContent}>
             <Text style={styles.message}>{message}</Text>
             <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.btn} onPress={hide}>
+                <Text style={styles.btnText}>{t("No")}</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.btn} onPress={confirm}>
                 <Text style={styles.btnText}>{t("Yes")}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btn} onPress={hide}>
-                <Text style={styles.btnText}>{t("No")}</Text>
-              </TouchableOpacity>
+           
             </View>
           </View>
         </View>
