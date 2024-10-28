@@ -73,10 +73,7 @@ const styles = StyleSheet.create({
         padding: 16,
         borderRadius: 10,
         marginVertical: 4,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 1,
+
   
       },
       itemContent: {
