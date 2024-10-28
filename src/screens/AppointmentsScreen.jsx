@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, TouchableOpacity, SectionList } from 'react-native';
+import { StyleSheet, View, Modal ,ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { cancelBooking, createBooking, getSchedulesByCourse } from '../api/Booking';
 import CustomButton from '../constants/CustomButton';
@@ -7,10 +7,12 @@ import { useTranslation } from 'react-i18next';
 import UIConfirmation from '../components/commun/UIConfirmation';
 import useAuthStore from '../store/authStore';
 import sectionListFormat from '../utils/helpers/sectionListFormatter';
-
+import ScheduleSlotsList from '../components/schedule/ScheduleSlotsList';
+import ScheduleDetails from '../components/schedule/ScheduleDetails';
 const AppointmentsScreen = ({ courseid = 4 }) => {
   const { t } = useTranslation();
   const [timeSlots, setTimeSlots] = useState([]);
+  const [slotId,setSlotId]=useState();
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalConfirmationType, setModalConfirmationType] = useState('success');
@@ -21,11 +23,9 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
     const fetchBookingSlots = async () => {
       try {
         const slots = await getSchedulesByCourse(courseid, wstoken);
-        console.log("slots", slots.length);
-        
+        console.log("slots", slots);
         // Transform the slots into a SectionList format
         const groupedSlots = sectionListFormat(slots);
-
         setTimeSlots(Object.values(groupedSlots));
       } catch (error) {
         console.error('Error fetching token or booking slots:', error);
@@ -33,26 +33,22 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
     };
 
     fetchBookingSlots();
-  }, [courseid, wstoken]);
+  }, [courseid, wstoken,timeSlots.length]);
 
-  const bookSlot = async (id) => {
-    if (!id) {
+  const bookSlot = async () => {
+    if (!slotId) {
       setConfirmationMessage('Fail to book Appointment');
       setModalConfirmationType('fail');
       setModalVisible(true);
       return;
     }
-
     setLoading(true);
     try {
-      // to test cancel booking
-      if (timeSlots.length === 1) {
-        await cancelBooking(id, wstoken);
-      } else {
-        const bookingStatus = await createBooking(id, wstoken);
+    
+        const bookingStatus = await createBooking(slotId, wstoken);
         if (bookingStatus) {
           setModalVisible(true);
-        }
+      
       }
     } catch (error) {
       setModalConfirmationType('fail');
@@ -61,36 +57,28 @@ const AppointmentsScreen = ({ courseid = 4 }) => {
       setLoading(false);
     }
   };
+  const cancelSchudule=async ()=>{
+    let id = timeSlots[0].data[0].id // grab booked slotId 
+        console.log("id",id);
+        await cancelBooking(id, wstoken);
+        setTimeSlots([]) // to trigger rerender
+  }
 
   return (
     <Background>
       <View style={styles.container}>
-        <View style={styles.list}>
-          <SectionList
-            sections={timeSlots}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => bookSlot(item.id)}
-                style={styles.item}
-              >
-                <Text style={styles.title}>
-                  {`${item.start_time} - ${item.end_time}`}
-                </Text>
-              </TouchableOpacity>
-            )}
-            renderSectionHeader={({ section: { title } }) => (
-              <View style={styles.headerContainer}>
-                <Text style={styles.header}>{title}</Text>
-              </View>
-            )}
-            stickySectionHeadersEnabled={false}
-          />
-        </View>
-
+      {timeSlots.length > 1 ? (
+        <ScheduleSlotsList timeSlots={timeSlots} onSlotSelected={setSlotId} />
+      ) : timeSlots.length === 1 ? (
+        <ScheduleDetails bookedSlot={timeSlots} />
+      ) : (
+        <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="white" />
+      </View>
+      )}
         <View style={styles.footer}>
-          <CustomButton onPress={bookSlot} style={styles.btn} loading={loading}>
-            {t('Book')}
+          <CustomButton onPress={timeSlots.length === 1 ?cancelSchudule:bookSlot} style={timeSlots.length === 1 ?styles.cancelBtn :styles.bookBtn} loading={loading}>
+            {t(timeSlots.length === 1 ?'Cancel Booking':'Book')}
           </CustomButton>
         </View>
       </View>
@@ -119,45 +107,28 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "transparent", 
     flexDirection: 'column',
+    justifyContent:"center",
   },
-  headerContainer: {
-    backgroundColor: '#016143', 
-    padding: 5,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  header: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: "white",
-  },
-  list: {
-    flex: 1, 
-    margin: 5,
-    marginTop: 40,
-  },
-  item: {
-    padding: 16,
-    backgroundColor: '#FFFFFF', 
-    borderRadius: 10,
-    marginVertical: 4,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 1,
-  },
-  title: {
-    fontSize: 18,
-    color: '#333', 
-    textAlign: "center"
-  },
+ 
   footer: {
+    marginTop:"auto",
     backgroundColor: '#003143', 
     padding: 10,
   },
-  btn: {
+  bookBtn: {
     backgroundColor: '#3498db', 
     borderRadius: 10,
     padding: 16,
   },
+  cancelBtn: {
+    backgroundColor: '#ff2c2c', 
+    borderRadius: 10,
+    padding: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center', 
+  },
+  
 });
