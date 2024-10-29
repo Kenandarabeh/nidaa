@@ -6,14 +6,13 @@ import Background from '../constants/Background';
 import CircularProgressbar from '../components/onboarding/circularPrgress';
 const onBoardingSummary = ({ navigation ,score }) => {
   const { t } = useTranslation();
-  const progress = 70;
 
   return (
     <Background>
       <View style={styles.container}>
         <Text style={styles.title}>{t('جودة نومك')}</Text>
 
-        <CircularProgressbar progress={progress} />
+        <CircularProgressbar progress={score} />
 
         <View style={styles.textContainer}>
           <Text style={styles.description}>
