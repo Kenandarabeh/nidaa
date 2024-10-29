@@ -9,7 +9,9 @@ export async function fetchCourses(wstoken) {
   );
 
   return data;
-}
+} 
+
+
 export async function fetchCourseContent(courseId, wstoken) {
   const params = {
     courseid: courseId,
@@ -36,5 +38,7 @@ export async function getEnroledUserCourses(userid, wstoken) {
   );
   return data;
 }
+
+
 
 //https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=eafdb482b43eb0a21d68be36f3cec5de&moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&userid=6

@@ -10,7 +10,11 @@ import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
 import useAuthStore from '../store/authStore';
 import OnBoardingScreen from '../screens/OnBoardingScreen';
-import OnBoardingSummary from '../screens/OnBoardingSummary';
+import ContentPage from '../screens/ContentPage';
+import WelcomeScreen from '../screens/WelcomScreen';
+import SessionScreen from '../screens/SessionScreen';
+import OnBoardingSummary from '../screens/onBoardingSummary';
+import CallScreen from '../screens/CallScreen';
 
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
@@ -28,17 +32,17 @@ export default function AppNavigator() {
   // TO DO add loading component
   useEffect(() => {
     initializeAuth();
-  }, []);
+  }, [initializeAuth]);
   return (
     <NavigationContainer theme={DeepSleepTheme}>
-      <Stack.Navigator initialRouteName={isAuth ? 'Appointments' : 'Login'}>
+      <Stack.Navigator initialRouteName={isAuth ? 'Login' : 'Login'}>
         {isAuth ? (
           <>
-            <Stack.Screen
+            {/* <Stack.Screen
               name="Appointments"
               component={AppointmentsScreen}
               options={{headerShown: false}}
-            />
+            /> */}
              <Stack.Screen
               name="Login"
               component={LoginScreen}
@@ -54,7 +58,16 @@ export default function AppNavigator() {
               component={OnBoardingSummary}
               options={{headerShown: false}}
             />
-           
+                <Stack.Screen
+              name="SessionScreen"
+              component={SessionScreen}
+              options={{headerShown: false}}
+            />
+                <Stack.Screen
+              name="CallScreen"
+              component={CallScreen}
+              options={{headerShown: false}}
+            />
           </>
         ) : (
           <>
@@ -62,6 +75,11 @@ export default function AppNavigator() {
             <Stack.Screen
               name="Login"
               component={LoginScreen}
+              options={{headerShown: false}}
+            />
+                 <Stack.Screen
+              name="CallScreen"
+              component={CallScreen}
               options={{headerShown: false}}
             />
             <Stack.Screen
@@ -79,6 +97,17 @@ export default function AppNavigator() {
               component={ResetPassword}
               options={{headerShown: false}}
             />
+                      <Stack.Screen
+              name="ContentPage"
+              component={ContentPage}
+              options={{headerShown: false}}
+            />
+                     <Stack.Screen
+              name="WelcomeScreen"
+              component={WelcomeScreen}
+              options={{headerShown: false}}
+            />
+               
             <Stack.Screen
               name="EnterOtp"
               component={EnterOtp}

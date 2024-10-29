@@ -21,13 +21,12 @@ const LoginScreen = ({navigation}) => {
     setIsLoading(true);
     const moodle_ws_token = await user_login(email, password);
     if (moodle_ws_token) {
-      const {userprivateaccesskey} = await getUserProfile(moodle_ws_token);
-      
+      const {userprivateaccesskey,userid} = await getUserProfile(moodle_ws_token);
       if (userprivateaccesskey) {
-        setAuth(moodle_ws_token, userprivateaccesskey);
-        navigation.navigate('OnBoarding')
+          console.log(userid.toString());
+        setAuth(moodle_ws_token, userprivateaccesskey, userid.toString());
+        navigation.navigate('OnBoarding');
       }
-      
     }
     setIsLoading(false);
   };

@@ -54,5 +54,6 @@ export async function getUserProfile(wstoken) {
     wstoken,
     "POST"
   );
+  console.log(data);
   return data;
 }
