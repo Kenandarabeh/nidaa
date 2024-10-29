@@ -10,7 +10,7 @@ import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
 import useAuthStore from '../store/authStore';
 import OnBoardingScreen from '../screens/OnBoardingScreen';
-import onBoardingSummary from '../screens/onBoardingSummary';
+import OnBoardingSummary from '../screens/OnBoardingSummary';
 
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
@@ -46,12 +46,19 @@ export default function AppNavigator() {
             />
               <Stack.Screen
               name="OnBoarding"
-              component={onBoardingSummary}
+              component={OnBoardingScreen}
               options={{headerShown: false}}
             />
+              <Stack.Screen
+              name="OnBoardingSummary"
+              component={OnBoardingSummary}
+              options={{headerShown: false}}
+            />
+           
           </>
         ) : (
           <>
+       
             <Stack.Screen
               name="Login"
               component={LoginScreen}

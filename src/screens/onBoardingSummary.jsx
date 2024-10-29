@@ -4,15 +4,15 @@ import CustomButton from '../constants/CustomButton';
 import { useTranslation } from 'react-i18next';
 import Background from '../constants/Background';
 import CircularProgressbar from '../components/onboarding/circularPrgress';
-const onBoardingSummary = ({ navigation ,score }) => {
+const OnBoardingSummary = ({ navigation ,route }) => {
   const { t } = useTranslation();
-
+  const { score } = route.params; // get score prop from navigation 
   return (
     <Background>
       <View style={styles.container}>
         <Text style={styles.title}>{t('جودة نومك')}</Text>
 
-        <CircularProgressbar progress={score} />
+        {score &&<CircularProgressbar progress={score} />}
 
         <View style={styles.textContainer}>
           <Text style={styles.description}>
@@ -38,7 +38,7 @@ const onBoardingSummary = ({ navigation ,score }) => {
   );
 };
 
-export default onBoardingSummary;
+export default OnBoardingSummary;
 
 const styles = StyleSheet.create({
   container: {

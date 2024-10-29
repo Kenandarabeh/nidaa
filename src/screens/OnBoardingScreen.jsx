@@ -13,7 +13,7 @@ const OnBoardingScreen = ({navigation}) => {
   const [lessons, setLessons] = useState([]);
   const [lessonPages, setLessonPages] = useState([]);
   const [lessonData, setLessonData] = useState(null);
-  const [nextPageId, setNextPageId] = useState(2); //first page id 
+  const [nextPageId, setNextPageId] = useState(55); //first page id 
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect( () => {
@@ -60,8 +60,9 @@ const OnBoardingScreen = ({navigation}) => {
     if(nextPageId===-9){
       const attempt_data = await finishLessonAttempt(1,wstoken)
       const score  = extractScore(attempt_data)
-      navigation.navigate('onBoardingSummary', {
-        score:score,
+      console.log("score before navigation ",score);
+      navigation.navigate('OnBoardingSummary', {
+        score: score, // pass score as pram
       });
     }
      else {

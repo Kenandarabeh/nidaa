@@ -4,9 +4,8 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { Circle } from 'react-native-svg';
 
 
-const CircularProgressbar = ({ progress, size = 250, strokeWidth = 20 }) => {
+const CircularProgressbar = ({ progress=0}) => {
 
-  const progrss = 86 ;
   return (
     <View style={styles.container}>
 
