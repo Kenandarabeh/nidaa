@@ -56,16 +56,13 @@ const OnBoardingScreen = () => {
 
   return (
     <Background>
-
-<View style={styles.container}>
-      
+    <View style={styles.container}>
       {isLoading ? (
         <ActivityIndicator size="large" color="white" />
       ) : (
         lessonPages.length > 0 && (
           <View>
             <Page lesson={lessonData} onAnswerSubmited={next} /> 
-          
           </View>
         )
       )}
