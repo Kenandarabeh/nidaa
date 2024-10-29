@@ -12,17 +12,21 @@ const Page = ({ lesson ,onAnswerSubmited}) => {
   const user_sesskey = useAuthStore.getState().sesskey;
   const selectAnswer = async (option) => {
       setSelectedAnswer(option.answerid);
-    
-    const { newpageid } = await submitLessonAnswer(
+    console.log("option",option);
+    const data= await submitLessonAnswer(
       user_sesskey,  //user session key grabed from authstore
       lesson.lessonid, // lesson id 
       lesson.id,  // page id 
       option.answerid, //answer id 
       wstoken, //webservice token
+      lesson.qtype,
+      option.answerformat
     );
-    //find next page id 
+    //find next page id `
+    console.log("option",lesson);
     if(option.jumpto ===-1){
-        onAnswerSubmited(newpageid+1)
+      console.log("newpageid",lesson.nextpageid);
+        onAnswerSubmited(lesson.nextpageid)
     }else {
         onAnswerSubmited(option.jumpto)
     }
@@ -38,7 +42,7 @@ const Page = ({ lesson ,onAnswerSubmited}) => {
           {lesson.answers.map((option, index) => (
            
                  <TouchableOpacity
-                 key={index} 
+                 key={option.answerid} 
              onPress={() => selectAnswer(option)}
              style={[
                styles.answerButton,
@@ -76,10 +80,9 @@ const styles = StyleSheet.create({
     marginBottom: 20, 
     fontFamily:"Tajawal",
     lineHeight: 24, 
-
-    textAlign: "justify",
-    marginHorizontal:10,
+    textAlign: "right",
     fontWeight:"600",
+    marginHorizontal:10,
   },
   itemContent: {
     flexDirection: 'row',
@@ -89,12 +92,12 @@ const styles = StyleSheet.create({
   answerButton: {
     flexDirection: 'row', 
     alignItems: 'center', 
-    padding: 16,
+    padding: 8,
     marginVertical: 8,
     marginHorizontal:20,
     backgroundColor: '#003143',
     borderRadius: 25,
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: 'transparent', 
   
   },
@@ -105,6 +108,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     textAlign: 'center',
+    paddingTop:3,
     fontFamily:"Tajawal",
     flex: 1, 
   },

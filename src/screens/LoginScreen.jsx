@@ -11,8 +11,8 @@ import CustomButton from '../constants/CustomButton';
 import useAuthStore from '../store/authStore';
 const LoginScreen = ({navigation}) => {
   const {t} = useTranslation();
-  const [email, setEmail] = useState('laibout');
-  const [password, setPassword] = useState('D33p_Sleep');
+  const [email, setEmail] = useState('fetest');
+  const [password, setPassword] = useState('F3test1ng@');
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +22,7 @@ const LoginScreen = ({navigation}) => {
     const moodle_ws_token = await user_login(email, password);
     if (moodle_ws_token) {
       const {userprivateaccesskey} = await getUserProfile(moodle_ws_token);
+      
       if (userprivateaccesskey) {
         setAuth(moodle_ws_token, userprivateaccesskey);
         navigation.navigate('OnBoarding')

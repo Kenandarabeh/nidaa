@@ -5,17 +5,18 @@ import useAuthStore from '../store/authStore';
 import Background from '../constants/Background';
 import Page from '../components/onboarding/Page';
 // Fetching apis
-import { getLessonsByCourses, getLessonPageData, getLessonPages } from '../api/Lesson';
-
-const OnBoardingScreen = () => {
+import { getLessonsByCourses, getLessonPageData, getLessonPages, startLessonAttempt, finishLessonAttempt } from '../api/Lesson';
+// helper
+import extractScore from '../utils/helpers/extractScore';
+const OnBoardingScreen = ({navigation}) => {
   const wstoken = useAuthStore.getState().wstoken;
   const [lessons, setLessons] = useState([]);
   const [lessonPages, setLessonPages] = useState([]);
   const [lessonData, setLessonData] = useState(null);
   const [nextPageId, setNextPageId] = useState(2); //first page id 
   const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(() => {
+
+  useEffect( () => {
     const loadData = async () => {
       try {
         const fetchedLessons = await getLessonsByCourses([2], wstoken); // asuming course id:2
@@ -23,15 +24,24 @@ const OnBoardingScreen = () => {
         const fetchedLessonPages = await getLessonPages(fetchedLessons[0]?.id, wstoken);
         setLessonPages(fetchedLessonPages);
         await loadLessonData(fetchedLessons[0]?.id);
+
       } catch (error) {
         console.error(error);
       } finally {
         setIsLoading(false);
       }
     };
-
+ 
     loadData();
   }, [wstoken,nextPageId],);
+
+  useEffect(()=>{
+    console.log("starting an attempt");
+    const startNewAttempt=async ()=>{
+      await startLessonAttempt(1,wstoken)
+    };
+  startNewAttempt();
+  },[])
 
   const loadLessonData = async (lessonId) => {
     setIsLoading(true);
@@ -46,12 +56,18 @@ const OnBoardingScreen = () => {
   };
 
   const next = async (nextPageId) => {
-    console.log("page id",nextPageId);
-    if (nextPageId < lessonPages.length - 1) 
+    //pageid = -9 means the onboarding ends
+    if(nextPageId===-9){
+      const attempt_data = await finishLessonAttempt(1,wstoken)
+      const score  = extractScore(attempt_data)
+      navigation.navigate('onBoardingSummary', {
+        score:score,
+      });
+    }
+     else {
       setNextPageId(nextPageId);
-      
+     }
   };
-
   const lessonProgress = (nextPageId / (lessonPages.length - 1)) * 100;
 
   return (
