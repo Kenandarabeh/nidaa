@@ -9,11 +9,9 @@ import { getEnroledUserCourses } from '../api/Courses';
 import { base_url } from '../config/base_url';
 import Text from '../constants/CustomText';
 import { GetCoursePages, postDisplayedPage } from '../api/Pages';
+import stripHtml from '../utils/helpers/htmlStrip';
 
 // Utility function to strip HTML tags
-const stripHtmlTags = (html) => {
-  return html.replace(/<\/?[^>]+(>|$)/g, "");
-};
 
 const ContentPage = ({navigation}) => {
   const { t } = useTranslation();
@@ -44,7 +42,7 @@ const ContentPage = ({navigation}) => {
               const responseViewPage = await postDisplayedPage(wstoken, pageid.toString());
                 console.log(`the response is : ${responseViewPage}`);
 
-              const plainTextContent = stripHtmlTags(pageContent);
+              const plainTextContent = stripHtml(pageContent);
               setData(plainTextContent);
             }
           } else {

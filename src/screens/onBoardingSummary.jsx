@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import CustomButton from '../constants/CustomButton';
 import { useTranslation } from 'react-i18next';
 import Background from '../constants/Background';
 import CircularProgressbar from '../components/onboarding/circularPrgress';
+import Text from '../constants/CustomText';
 const OnBoardingSummary = ({ navigation ,route }) => {
   const { t } = useTranslation();
   const { score } = route.params; // get score prop from navigation 
