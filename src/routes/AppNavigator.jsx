@@ -49,14 +49,16 @@ export default function AppNavigator() {
               options={{headerShown: false}}
             />
               <Stack.Screen
-              name="OnBoarding"
-              component={OnBoardingScreen}
+              name="CallScreen"
+              component={CallScreen}
               options={{headerShown: false}}
             />
-              <Stack.Screen
-              name="OnBoardingSummary"
-              component={OnBoardingSummary}
-              options={{headerShown: false}}
+               <Stack.Screen
+                 component={Meeting}
+                 name="Meeting"
+                 options={{
+                   headerShown: false,
+                 }}
             />
                 <Stack.Screen
               name="SessionScreen"

@@ -11,8 +11,8 @@ import CustomButton from '../constants/CustomButton';
 import useAuthStore from '../store/authStore';
 const LoginScreen = ({navigation}) => {
   const {t} = useTranslation();
-  const [email, setEmail] = useState('fetest');
-  const [password, setPassword] = useState('F3test1ng@');
+  const [email, setEmail] = useState('laibout');
+  const [password, setPassword] = useState('D33p_Sleep');
   const [emailFocused, setEmailFocused] = useState(false);
   const [passwordFocused, setPasswordFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
