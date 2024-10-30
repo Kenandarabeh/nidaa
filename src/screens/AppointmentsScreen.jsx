@@ -11,7 +11,7 @@ import ScheduleSlotsList from '../components/schedule/ScheduleSlotsList';
 import ScheduleDetails from '../components/schedule/ScheduleDetails';
 import { useConfirmation } from '../components/commun/Confirm';
 
-const AppointmentsScreen = ({ courseid = 4 }) => {
+const AppointmentsScreen = ({ courseid = 8 }) => {
   const showConfirmation = useConfirmation();
   const { t } = useTranslation();
   const [timeSlots, setTimeSlots] = useState([]);

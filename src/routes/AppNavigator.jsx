@@ -9,8 +9,8 @@ import ForgotPassword from '../screens/ForgotPassword';
 import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
 import useAuthStore from '../store/authStore';
-import OnBoardingScreen from '../screens/OnBoardingScreen';
-import OnBoardingSummary from '../screens/OnBoardingSummary';
+import CallScreen from '../screens/CallScreen';
+import Meeting from '../components/jitsi/meeting';
 
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
@@ -45,15 +45,18 @@ export default function AppNavigator() {
               options={{headerShown: false}}
             />
               <Stack.Screen
-              name="OnBoarding"
-              component={OnBoardingScreen}
+              name="CallScreen"
+              component={CallScreen}
               options={{headerShown: false}}
             />
-              <Stack.Screen
-              name="OnBoardingSummary"
-              component={OnBoardingSummary}
-              options={{headerShown: false}}
+               <Stack.Screen
+                 component={Meeting}
+                 name="Meeting"
+                 options={{
+                   headerShown: false,
+                 }}
             />
+        
            
           </>
         ) : (
