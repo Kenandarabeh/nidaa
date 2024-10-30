@@ -25,7 +25,7 @@ const LoginScreen = ({navigation}) => {
       
       if (userprivateaccesskey) {
         setAuth(moodle_ws_token, userprivateaccesskey);
-        navigation.navigate('CallScreen')
+        navigation.navigate('Appointments')
       }
       
     }

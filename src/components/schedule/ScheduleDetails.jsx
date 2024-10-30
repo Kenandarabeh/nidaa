@@ -2,8 +2,14 @@ import { StyleSheet, Text, View ,SectionList,TouchableOpacity} from 'react-nativ
 import React from 'react'
 import { useTranslation } from 'react-i18next';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 const ScheduleDetails = ({bookedSlot}) => {
+  const navigation = useNavigation()
     const {t} = useTranslation()
+    const room="RandomRoomName"
+    const  joinJitsiRoom=()=>{
+      navigation.navigate('Meeting', { room })
+    }
   return (
 
    <View style={styles.listContainer}>
@@ -15,6 +21,7 @@ const ScheduleDetails = ({bookedSlot}) => {
       renderItem={({ item }) => (
         <TouchableOpacity
           style={styles.item}
+          onPress={joinJitsiRoom}
         >
           <View style={styles.itemContent}>
               <Text style={styles.title}>
