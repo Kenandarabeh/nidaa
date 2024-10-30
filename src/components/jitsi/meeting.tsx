@@ -17,7 +17,7 @@ const Meeting = ( { route }: MeetingProps ) => {
 
   const onReadyToClose = useCallback(() => {
     // @ts-ignore
-    navigation.navigate('CallScreen');
+    navigation.navigate('Login');
     // @ts-ignore
     jitsiMeeting.current.close();
   }, [navigation]);
