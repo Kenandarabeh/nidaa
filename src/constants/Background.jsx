@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, Dimensions, ScrollView, Platform } from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import helalImage from '../assets/images/Helal.png';
 import LinearGradient from 'react-native-linear-gradient';
-import ShootingStar from './ShootingStar';
 
 // ثوابت التكوين
 const CONFIG = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import AnimatedCircularProgress from '../../constants/AnimatedCircularProgress';
 
 const CircularProgressbar = ({ progress = 0 }) => {
   return (

@@ -35,7 +35,6 @@
     "react-i18next": "^15.1.0",
     "react-native": "0.75.4",
     "react-native-asset": "2.1.1",
-    "react-native-circular-progress": "^1.4.1",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-eject": "^1.0.0",
     "react-native-element-dropdown": "^2.12.2",
