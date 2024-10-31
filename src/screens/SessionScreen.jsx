@@ -21,6 +21,12 @@ const SessionScreen = ({navigation , route }) => {
       modules: section.modules
     })
   };
+  const selectedLesson = () => {
+    console.log("section modules",section.modules);
+    navigation.navigate("LessonScreen",{
+      modules: section.modules
+    })
+  };
 
   const pickdate = () => {
     // Implement showModal functionality
@@ -53,7 +59,7 @@ const SessionScreen = ({navigation , route }) => {
                 {t('Medical Questionnaire')}
               </CustomButton>
               <CustomButton
-                onPress={() => onButtonTap('سجل النوم')}
+                onPress={() => selectedLesson('سجل النوم')}
                 style={[styles.button, styles.smallButton]}
                 textStyle={{ fontSize: 18 }}
               >

@@ -8,9 +8,9 @@ import Page from '../components/onboarding/Page';
 import { getLessonsByCourses, getLessonPageData, getLessonPages, startLessonAttempt, finishLessonAttempt } from '../api/Lesson';
 // helper
 import extractScore from '../utils/helpers/extractScore';
-import { fetchCourseByField } from '../api/Courses';
-const OnBoardingScreen = ({navigation}) => {
+const LessonScreen = ({navigation ,route}) => {
   const wstoken = useAuthStore.getState().wstoken;
+  const {modules} = route.params
   const [lessons, setLessons] = useState([]);
   const [lessonPages, setLessonPages] = useState([]);
   const [lessonData, setLessonData] = useState(null);
@@ -20,13 +20,14 @@ const OnBoardingScreen = ({navigation}) => {
   useEffect( () => {
     const loadData = async () => {
       try {
-        const course  = await fetchCourseByField(wstoken)
-        console.log("courseid",course.id);
-        const fetchedLessons = await getLessonsByCourses([course.id], wstoken); // asuming course id:2
-        setLessons(fetchedLessons);
-        const fetchedLessonPages = await getLessonPages(fetchedLessons[0]?.id, wstoken);
+        // const fetchedLessons = await getLessonsByCourses([2], wstoken); // asuming course id:2
+        
+        // setLessons(fetchedLessons);
+        console.log("modules id",modules[4].instance); // lesson id  /
+        const fetchedLessonPages = await getLessonPages(modules[4].instance, wstoken);
+        console.log("fetchedlessonPages",fetchedLessonPages);
         setLessonPages(fetchedLessonPages);
-        await loadLessonData(fetchedLessons[0]?.id);
+        await loadLessonData(modules[4].instance);
 
       } catch (error) {
         console.error(error);
@@ -72,8 +73,7 @@ const OnBoardingScreen = ({navigation}) => {
       setNextPageId(nextPageId);
      }
   };
-  const lessonProgress = (nextPageId / (lessonPages.length - 1)) * 100;
-
+  
   return (
     <Background>
     <View style={styles.container}>
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
     justifyContent:"center",
   }
 });
-export default OnBoardingScreen;
+export default LessonScreen;

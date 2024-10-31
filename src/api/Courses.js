@@ -12,6 +12,21 @@ export async function fetchCourses(wstoken) {
 } 
 
 
+
+export async function fetchCourseByField(wstoken) {
+  const params = {
+    field:"shortname", 
+    value:"onboarding"
+  };
+  const data = await moodleClient.sendRequest(
+    "core_course_get_courses_by_field",
+    params,
+    wstoken,
+    "GET"
+  );
+  return data.courses[0];
+}
+
 export async function fetchCourseContent(courseId, wstoken) {
   const params = {
     courseid: courseId,
@@ -38,6 +53,9 @@ export async function getEnroledUserCourses(userid, wstoken) {
   );
   return data;
 }
+
+
+//  "core_course_get_courses_by_field"   params :{field:"shortname", value:"onboarding"} response : courseid    
 
 
 

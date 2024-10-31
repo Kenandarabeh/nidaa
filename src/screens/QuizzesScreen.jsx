@@ -6,29 +6,21 @@ import CustomButton from '../constants/CustomButton';
 const QuizzesScreen = ({navigation,route}) => {
     const {modules} = route.params ;
     console.log("this is section modules",modules );
-
-
-
     const selectedQuiz = quiz =>{
         navigation.navigate("QuizPage",{
-            id:quiz.id
+            id:quiz.instance
         })
     }
   return (
     <Background>
-   
-
     <View style={styles.container} >
-
-
     {
             modules.map((quiz , idx )=>
-              quiz.modname ==='quiz' &&  <CustomButton  key={idx} onPress={()=>selectedQuiz(quiz)}>
+             <CustomButton  key={idx} onPress={()=>selectedQuiz(quiz)}>
             {quiz?.name}
 </CustomButton>
              )
         }
- 
     </View>
 
 </Background>

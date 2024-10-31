@@ -2,15 +2,17 @@ import { StyleSheet, Text, View } from 'react-native'
 import Background from '../constants/Background'
 import React, { useEffect } from 'react'
 import useAuthStore from '../store/authStore'
-import { quizStartAttempt } from '../api/Quizzes'
+import { quizStartAttempt ,getQuizQuestions } from '../api/Quizzes'
 const QuizPage = ({route, navigation}) => {
     const {id } = route.params
     const wstoken = useAuthStore.getState().wstoken;
     const userid = useAuthStore.getState().userid;
     useEffect(()=>{
        const fetchQuizData =async ()=>{
-        const attemptData = await quizStartAttempt(id , wstoken)
-        console.log("attempt data",attemptData);
+        const startAttemptData = await quizStartAttempt(id , wstoken)
+        console.log("attempt data",startAttemptData);
+        const quizData = await getQuizQuestions(startAttemptData.id , wstoken)
+        console.log("quizData",quizData);
        };
        fetchQuizData();
     },[id])
