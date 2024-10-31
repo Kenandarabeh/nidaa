@@ -23,9 +23,8 @@ const LoginScreen = ({navigation}) => {
     if (moodle_ws_token) {
       const {userprivateaccesskey,userid} = await getUserProfile(moodle_ws_token);
       if (userprivateaccesskey) {
-          console.log(userid.toString());
         setAuth(moodle_ws_token, userprivateaccesskey, userid.toString());
-        navigation.navigate('OnBoarding');
+        navigation.navigate('CourseScreen');
       }
     }
     setIsLoading(false);

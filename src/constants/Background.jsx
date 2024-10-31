@@ -175,8 +175,7 @@ const Background = ({ children, style }) => {
         
         <View style={[styles.starsOverlay, { height: contentHeight }]}>
           {stars.map((star, index) => (
-            <Star k
-            ey={`star-${index}`} star={star} />
+            <Star key={`star-${index}`} star={star} />
           ))}
 
         </View>

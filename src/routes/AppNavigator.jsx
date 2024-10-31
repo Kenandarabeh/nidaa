@@ -15,7 +15,9 @@ import WelcomeScreen from '../screens/WelcomScreen';
 import SessionScreen from '../screens/SessionScreen';
 import OnBoardingSummary from '../screens/onBoardingSummary';
 import CallScreen from '../screens/CallScreen';
-
+import CourseScreen from '../screens/CourseScreen';
+import QuizzesScreen from '../screens/QuizzesScreen';
+import QuizPage from '../screens/QuizPage';
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
   ...DefaultTheme,
@@ -48,26 +50,40 @@ export default function AppNavigator() {
               component={LoginScreen}
               options={{headerShown: false}}
             />
-              <Stack.Screen
-              name="CallScreen"
-              component={CallScreen}
-              options={{headerShown: false}}
-            />
-               <Stack.Screen
+               {/* <Stack.Screen
                  component={Meeting}
                  name="Meeting"
                  options={{
                    headerShown: false,
                  }}
-            />
+            /> */}
                 <Stack.Screen
               name="SessionScreen"
               component={SessionScreen}
               options={{headerShown: false}}
             />
+            
                 <Stack.Screen
               name="CallScreen"
               component={CallScreen}
+              options={{headerShown: false}}
+            />
+
+
+<Stack.Screen
+              name="QuizPage"
+              component={QuizPage}
+              options={{headerShown: false}}
+            />
+                 <Stack.Screen
+              name="CourseScreen"
+              component={CourseScreen}
+              options={{headerShown: false}}
+            />
+            
+            <Stack.Screen
+              name="QuizzesScreen"
+              component={QuizzesScreen}
               options={{headerShown: false}}
             />
           </>

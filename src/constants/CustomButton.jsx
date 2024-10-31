@@ -2,9 +2,9 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native';
 import CustomText from '../constants/CustomText'; // تأكد من تعديل المسار حسب الحاجة
 
-const CustomButton = ({onPress, style, textStyle, children, loading}) => {
+const CustomButton = ({onPress, style, textStyle, children, loading ,disabled}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
+    <TouchableOpacity disabled={disabled}  onPress={onPress} style={[styles.button, style ]}>
       {!loading && (
         <CustomText style={[styles.buttonText, textStyle]}>
           {children}

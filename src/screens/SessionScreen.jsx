@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import Video from 'react-native-video';
 import { useTranslation } from 'react-i18next';
 import Text from '../constants/CustomText';
@@ -10,13 +9,17 @@ import Background from '../constants/Background';
 
 const { width, height } = Dimensions.get('window');
 
-const SessionScreen = () => {
-  const navigation = useNavigation();
+const SessionScreen = ({navigation , route }) => {
+  const { section } = route.params;
+  console.log("section form session",section);
   const { t } = useTranslation();
   const [isVideoDisabled, setIsVideoDisabled] = useState(false);
 
-  const onButtonTap = (action) => {
-    console.log(action, 'button pressed');
+  const onButtonTap = () => {
+    console.log("section modules",section.modules);
+    navigation.navigate("QuizzesScreen",{
+      modules: section.modules
+    })
   };
 
   const pickdate = () => {
@@ -40,12 +43,12 @@ const SessionScreen = () => {
           </View>
           <View style={styles.session}>
             <View style={styles.sousContainer}>
-              <Text style={styles.sessionTitle}>{t('Session 1')}</Text>
+              <Text style={styles.sessionTitle}>{section.name }</Text>
               <CustomButton
                 onPress={() => onButtonTap(t('Medical Questionnaire'))}
                 style={[styles.button, styles.smallButton]}
                 textStyle={{ fontSize: 18 }}
-                disabled={true} // تعيين الزر كمعطل
+                disabled={section.modules[0].modname !== 'quiz' } // تعيين الزر كمعطل
               >
                 {t('Medical Questionnaire')}
               </CustomButton>
