@@ -55,7 +55,6 @@ class MoodleApiClient {
 
     url += `&${queryString}`;
 
-    console.log("url", url);
 
     const options = {
       method: method,

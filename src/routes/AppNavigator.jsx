@@ -9,7 +9,8 @@ import ForgotPassword from '../screens/ForgotPassword';
 import AppointmentsScreen from '../screens/AppointmentsScreen';
 import EnterOtp from '../screens/EnterOtp';
 import useAuthStore from '../store/authStore';
-import OnBoardingScreen from '../screens/OnBoardingScreen';
+import OnBoardingScreen from '../screens/OnBoardingScreen.jsx';
+import LessonPageScreen from '../screens/LessonPageScreen.jsx';
 import ContentPage from '../screens/ContentPage';
 import WelcomeScreen from '../screens/WelcomScreen';
 import SessionScreen from '../screens/SessionScreen';
@@ -18,7 +19,6 @@ import CallScreen from '../screens/CallScreen';
 import CourseScreen from '../screens/CourseScreen';
 import QuizzesScreen from '../screens/QuizzesScreen';
 import QuizPage from '../screens/QuizPage';
-import LessonScreen from '../screens/LessonScreen';
 const Stack = createNativeStackNavigator();
 const DeepSleepTheme = {
   ...DefaultTheme,
@@ -58,16 +58,25 @@ export default function AppNavigator() {
                    headerShown: false,
                  }}
             />
+            <Stack.Screen
+                 component={LessonPageScreen}
+                 name="LessonPageScreen"
+                 options={{
+                   headerShown: false,
+                 }}
+               />
+
+
                 <Stack.Screen
               name="SessionScreen"
               component={SessionScreen}
               options={{headerShown: false}}
             />
-                 <Stack.Screen
+                 {/* <Stack.Screen
               name="LessonScreen"
               component={LessonScreen}
               options={{headerShown: false}}
-            />
+            /> */}
             
                 <Stack.Screen
               name="CallScreen"

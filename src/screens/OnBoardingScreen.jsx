@@ -3,17 +3,20 @@ import React, { useEffect, useState } from 'react';
 import useAuthStore from '../store/authStore';
 //custom components
 import Background from '../constants/Background';
-import Page from '../components/onboarding/Page';
+import LessonPageScreen from './LessonPageScreen';
 // Fetching apis
 import { getLessonsByCourses, getLessonPageData, getLessonPages, startLessonAttempt, finishLessonAttempt } from '../api/Lesson';
 // helper
 import extractScore from '../utils/helpers/extractScore';
-import { fetchCourseByField } from '../api/Courses';
+import { fetchCourseByField, fetchCourseContent } from '../api/Courses';
+
+
+
+
 const OnBoardingScreen = ({navigation}) => {
   const wstoken = useAuthStore.getState().wstoken;
   const [lessons, setLessons] = useState([]);
   const [lessonPages, setLessonPages] = useState([]);
-  const [lessonData, setLessonData] = useState(null);
   const [nextPageId, setNextPageId] = useState(55); //first page id 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,12 +24,19 @@ const OnBoardingScreen = ({navigation}) => {
     const loadData = async () => {
       try {
         const course  = await fetchCourseByField(wstoken)
-        console.log("courseid",course.id);
-        const fetchedLessons = await getLessonsByCourses([course.id], wstoken); // asuming course id:2
+
+
+
+        const fetchedLessons = await  fetchCourseContent(course.id, wstoken)
+   
+        // const fetchedLessons = await getLessonsByCourses([course.id], wstoken); // asuming course id:2
         setLessons(fetchedLessons);
+        navigation.navigate('LessonPageScreen', {
+          lessonid:fetchedLessons[0].id,
+          pageid:2,
+        });
         const fetchedLessonPages = await getLessonPages(fetchedLessons[0]?.id, wstoken);
         setLessonPages(fetchedLessonPages);
-        await loadLessonData(fetchedLessons[0]?.id);
 
       } catch (error) {
         console.error(error);
@@ -39,54 +49,16 @@ const OnBoardingScreen = ({navigation}) => {
   }, [wstoken,nextPageId],);
 
   useEffect(()=>{
-    console.log("starting an attempt");
+
     const startNewAttempt=async ()=>{
       await startLessonAttempt(1,wstoken)
     };
   startNewAttempt();
   },[])
 
-  const loadLessonData = async (lessonId) => {
-    setIsLoading(true);
-    try {
-      const data = await getLessonPageData(lessonId, nextPageId, wstoken);
-      setLessonData(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const next = async (nextPageId) => {
-    //pageid = -9 means the onboarding ends
-    if(nextPageId===-9){
-      const attempt_data = await finishLessonAttempt(1,wstoken)
-      const score  = extractScore(attempt_data)
-      console.log("score before navigation ",score);
-      navigation.navigate('OnBoardingSummary', {
-        score: score, // pass score as pram
-      });
-    }
-     else {
-      setNextPageId(nextPageId);
-     }
-  };
-  const lessonProgress = (nextPageId / (lessonPages.length - 1)) * 100;
-
   return (
     <Background>
-    <View style={styles.container}>
-      {isLoading ? (
-        <ActivityIndicator size="large" color="white" />
-      ) : (
-        lessonPages.length > 0 && (
-          <View>
-            <Page lesson={lessonData} onAnswerSubmited={next} /> 
-          </View>
-        )
-      )}
-    </View>
+ <ActivityIndicator size="large" color="white" />
     </Background>
    
   );
@@ -98,3 +70,21 @@ const styles = StyleSheet.create({
   }
 });
 export default OnBoardingScreen;
+
+
+  // const next = async (nextPageId) => {
+  //   //pageid = -9 means the onboarding ends
+  //   if(nextPageId===-9){
+  //     const attempt_data = await finishLessonAttempt(1,wstoken)
+  //     const score  = extractScore(attempt_data)
+  //     console.log("score before navigation ",score);
+  //     navigation.navigate('OnBoardingSummary', {
+  //       score: score, // pass score as pram
+  //     });
+  //   }
+  //    else {
+  //     setNextPageId(nextPageId);
+  //    }
+  // };
+
+ 
