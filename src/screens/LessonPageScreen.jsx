@@ -41,6 +41,7 @@ const LessonPageScreen = ({route}) => {
     )
     //find next page id
     if (option.jumpto === -1) {
+      // next
       navigation.push('LessonPageScreen', {
         lessonid: lessonid,
         pageid: lessonPageData?.nextpageid,
@@ -50,11 +51,11 @@ const LessonPageScreen = ({route}) => {
       const attempt_data = await finishLessonAttempt(1, wstoken)
       const score = extractScore(attempt_data)
       navigation.navigate('OnBoardingSummary', {
-        score: score, // pass score as pram
+        score: score, // pass score as params
       })
     } else {
       navigation.push('LessonPageScreen', {
-        pageid: option.jumpto,
+        pageid: option.jumpto, // depends on branching
         lessonid: lessonid,
       })
     }
