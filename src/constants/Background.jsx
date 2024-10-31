@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, Dimensions, ScrollView, Platform } from 'react
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import helalImage from '../assets/images/Helal.png';
 import LinearGradient from 'react-native-linear-gradient';
-import ShootingStar from './ShootingStar';
 
 // ثوابت التكوين
 const CONFIG = {
@@ -27,14 +26,20 @@ const getWindowDimensions = () => {
   return { width, height };
 };
 
+let starCounter = 0; // Global counter for unique IDs
+
 // دالة إنشاء نجمة واحدة
-const createStar = (startHeight, endHeight, width) => ({
-  top: Math.random() * (endHeight - startHeight) + startHeight,
-  left: Math.random() * width,
-  size: Math.random() * (CONFIG.MAX_STAR_SIZE - CONFIG.MIN_STAR_SIZE) + CONFIG.MIN_STAR_SIZE,
-  opacity: Math.random() * 0.5 + 0.5, // إضافة شفافية عشوائية
-  animationDuration: Math.random() * 3000 + 2000, // مدة الوميض
-});
+const createStar = (startHeight, endHeight, width) => {
+  starCounter += 1;
+  return {
+    id: `star-${Date.now()}-${starCounter}`, // Guaranteed unique ID
+    top: Math.random() * (endHeight - startHeight) + startHeight,
+    left: Math.random() * width,
+    size: Math.random() * (CONFIG.MAX_STAR_SIZE - CONFIG.MIN_STAR_SIZE) + CONFIG.MIN_STAR_SIZE,
+    opacity: Math.random() * 0.5 + 0.5,
+    animationDuration: Math.random() * 3000 + 2000,
+  };
+};
 
 // دالة إنشاء مجموعة من النجوم
 const generateRandomStars = (numStars, startHeight, endHeight, width) => {
@@ -64,8 +69,6 @@ const Star = React.memo(({ star }) => {
       }, animationStyle]}
     />
   );
-}, (prevProps, nextProps) => {
-  return JSON.stringify(prevProps.star) === JSON.stringify(nextProps.star);
 });
 
 const Background = ({ children, style }) => {
@@ -98,7 +101,13 @@ const Background = ({ children, style }) => {
         const parsedDimensions = JSON.parse(storedDimensions);
         if (parsedDimensions.width === dimensions.width && 
             parsedDimensions.height === dimensions.height) {
-          setStars(JSON.parse(storedStars));
+          const parsedStars = JSON.parse(storedStars);
+          // Ensure stored stars have unique IDs
+          const updatedStars = parsedStars.map(star => ({
+            ...star,
+            id: `star-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
+          }));
+          setStars(updatedStars);
           return true;
         }
       }
@@ -159,7 +168,6 @@ const Background = ({ children, style }) => {
   const handleContentSizeChange = useCallback((_, height) => {
     setContentHeight(Math.max(height, dimensions.height));
   }, [dimensions.height]);
-  const [meteorCount] = useState(2); // عدد قليل للحفاظ على الأداء
 
   return (
     <LinearGradient
@@ -173,13 +181,13 @@ const Background = ({ children, style }) => {
         onContentSizeChange={handleContentSizeChange}
         scrollEventThrottle={16}
       >
-        
         <View style={[styles.starsOverlay, { height: contentHeight }]}>
           {stars.map((star, index) => (
-            <Star k
-            ey={`star-${index}`} star={star} />
+            <Star 
+              key={`${star.id}-${index}`} 
+              star={star} 
+            />
           ))}
-
         </View>
         <Image 
           source={helalImage} 
