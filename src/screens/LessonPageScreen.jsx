@@ -55,7 +55,7 @@ const LessonPageScreen = ({route}) => {
       })
     } else {
       navigation.push('LessonPageScreen', {
-        pageid: option.jumpto, // depends on branching
+        pageid: option.jumpto, // jumps depends on branching
         lessonid: lessonid,
       })
     }
