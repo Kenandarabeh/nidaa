@@ -10,6 +10,8 @@ import useAuthStore from '../store/authStore'
 import OnBoardingScreen from '../screens/OnBoardingScreen.jsx'
 import LessonPageScreen from '../screens/LessonPageScreen.jsx'
 import WelcomeScreen from '../screens/WelcomScreen'
+import Meeting from '../components/jitsi/meeting.tsx'
+import AppointmentsScreen from '../screens/AppointmentsScreen.jsx'
 
 const Stack = createNativeStackNavigator()
 
@@ -51,9 +53,29 @@ export default function AppNavigator() {
               name='LessonPageScreen'
               options={{animation: 'fade', animationDuration: 1000}}
             />
+            <Stack.Screen
+              component={AppointmentsScreen}
+              name='AppointmentsScreen'
+              options={{animation: 'fade', animationDuration: 1000}}
+            />
+            <Stack.Screen
+              component={Meeting}
+              name='Meeting'
+              options={{animation: 'fade', animationDuration: 1000}}
+            />
           </>
         ) : (
           <>
+            <Stack.Screen
+              component={Meeting}
+              name='Meeting'
+              options={{animation: 'fade', animationDuration: 1000}}
+            />
+            <Stack.Screen
+              component={AppointmentsScreen}
+              name='AppointmentsScreen'
+              options={{animation: 'fade', animationDuration: 1000}}
+            />
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Signup' component={SignupScreen} />
             <Stack.Screen name='ForgotPassword' component={ForgotPassword} />

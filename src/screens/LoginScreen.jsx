@@ -1,42 +1,42 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {user_login, getUserProfile} from '../api/User';
-import emailIcon from '../assets/icons/password.png';
-import lockIcon from '../assets/icons/password.png';
-import CustomTextInput from '../constants/CustomTextInput';
-import {useTranslation} from 'react-i18next';
-import CustomText from '../constants/CustomText';
-import Backgound from '../constants/Background';
-import CustomButton from '../constants/CustomButton';
-import useAuthStore from '../store/authStore';
+import React, {useState} from 'react'
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
+import {user_login, getUserProfile} from '../api/User'
+import emailIcon from '../assets/icons/password.png'
+import lockIcon from '../assets/icons/password.png'
+import CustomTextInput from '../constants/CustomTextInput'
+import {useTranslation} from 'react-i18next'
+import CustomText from '../constants/CustomText'
+import Backgound from '../constants/Background'
+import CustomButton from '../constants/CustomButton'
+import useAuthStore from '../store/authStore'
 const LoginScreen = ({navigation}) => {
-  const {t} = useTranslation();
-  const [email, setEmail] = useState('mobileapp2');
-  const [password, setPassword] = useState('Test123-8');
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [passwordFocused, setPasswordFocused] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const setAuth = useAuthStore(state => state.setAuth);
+  const {t} = useTranslation()
+  const [email, setEmail] = useState('mobileapp2')
+  const [password, setPassword] = useState('Test123-8')
+  const [emailFocused, setEmailFocused] = useState(false)
+  const [passwordFocused, setPasswordFocused] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const setAuth = useAuthStore(state => state.setAuth)
   const doLogin = async () => {
-    setIsLoading(true);
-    const moodle_ws_token = await user_login(email, password);
+    setIsLoading(true)
+    const moodle_ws_token = await user_login(email, password)
     if (moodle_ws_token) {
-      const {userprivateaccesskey,userid} = await getUserProfile(moodle_ws_token);
+      const {userprivateaccesskey, userid} = await getUserProfile(moodle_ws_token)
       if (userprivateaccesskey) {
-        setAuth(moodle_ws_token, userprivateaccesskey, userid.toString());
-        navigation.navigate('OnBoardingScreen');
+        setAuth(moodle_ws_token, userprivateaccesskey, userid.toString())
+        navigation.navigate('AppointmentsScreen')
       }
     }
-    setIsLoading(false);
-  };
+    setIsLoading(false)
+  }
 
   const register = () => {
-    navigation.navigate('Signup');
-  };
+    navigation.navigate('Signup')
+  }
 
   const forgetPassword = () => {
-    navigation.navigate('ForgotPassword');
-  };
+    navigation.navigate('ForgotPassword')
+  }
 
   return (
     <Backgound>
@@ -63,12 +63,8 @@ const LoginScreen = ({navigation}) => {
             editable={!isLoading}
             secureTextEntry
           />
-          <TouchableOpacity
-            onPress={forgetPassword}
-            style={styles.forgetPassword}>
-            <CustomText style={styles.signUpLabel}>
-              {t('Forget your password ?')}
-            </CustomText>
+          <TouchableOpacity onPress={forgetPassword} style={styles.forgetPassword}>
+            <CustomText style={styles.signUpLabel}>{t('Forget your password ?')}</CustomText>
           </TouchableOpacity>
           <CustomButton
             onPress={doLogin}
@@ -84,8 +80,8 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.logoContainer}></View>
       </View>
     </Backgound>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   page: {
@@ -159,6 +155,6 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 20,
   },
-});
+})
 
-export default LoginScreen;
+export default LoginScreen
