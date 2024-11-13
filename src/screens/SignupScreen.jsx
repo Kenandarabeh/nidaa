@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { user_signup } from '../api/User';
 import Backgound from '../constants/Background';
@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next';
 import CustomTextInput from '../constants/CustomTextInput';
 import emailIcon from '../assets/icons/password.png';
 import CustomButton from '../constants/CustomButton';
+import Intelgx from '../constants/Intelgx';
+import Header from '../components/Header';
 
 const SignupScreen = () => {
   const navigation = useNavigation();
@@ -35,7 +37,7 @@ const SignupScreen = () => {
   }, [formData]);
 
   const login = () => {
-    navigation.navigate('Login');
+    navigation.navigate('Auth');
   };
   const { t } = useTranslation();
 
@@ -46,7 +48,7 @@ const SignupScreen = () => {
     const result = await user_signup(user_data);
     if (result) {
       setIsLoading(false);
-      navigation.navigate('Details');
+      navigation.navigate('Auth');
     }
   };
 
@@ -58,98 +60,159 @@ const SignupScreen = () => {
     { name: 'secPassword', hint:'Confirm Password', type: 'password', secure: true ,icon: emailIcon},
   ];
 
+  const handlePrevPress = () => {
+    navigation.goBack();
+  };
+
   return (
-
-    <Backgound>
-      <View style={styles.page}>
-        <CustomText style={styles.title}>{t('Register')}</CustomText>
-        <View style={styles.register}>
-          {fields.map((field, index) => (
-              <CustomTextInput
-                  key={index}
-
-                iconSource={field.icon}
-                placeholder={field.hint}
-                value={formData[field.name]}
-                onChangeText={(text) => setFormData({ ...formData, [field.name]: text })}
-                onFocus={() => {
-                  if (field.emailValidation) setIsValidEmail(true);
-                  if (field.passwordField) setIsPasswordValid(true);
-                }}
-                onBlur={() => {
-                  if (field.emailValidation) setIsValidEmail(true); 
-                  if (field.passwordField) setIsPasswordValid(true); 
-                }}
-                editable={!isLoading}
-                secureTextEntry={field.secure}
-              />
-          ))}
-          <CustomButton
-            onPress={doRegister}
-            style={styles.btn}
-            textStyle={styles.btnText}
-            disabled={!isValidEmail || !passwordsMatch || isLoading}
-          >
-            {t('Register')}
-          </CustomButton>
-          <TouchableOpacity onPress={login}>
-            <CustomText style={styles.loginLabel}>{t('Already have an account')}</CustomText>
-          </TouchableOpacity>
-          {isLoading && <ActivityIndicator style={styles.activityIndicator} />}
-        </View>
+    <View style={styles.mainContainer}>
+      <View style={styles.headerSection}>
+        <Header
+          headerTitle={t('Register')}
+          showBackButton={true}
+          allowDrawer={true}
+        />
       </View>
-    </Backgound>
+
+      {/* Main Container */}
+      <View style={styles.contentWrapper}>
+        <ScrollView style={styles.scrollView}>
+          <View style={styles.formSection}>
+            <View style={styles.inputsGroup}>
+              {fields.map((field, index) => (
+                <View key={index} style={styles.inputWrapper}>
+                  <CustomTextInput
+                    iconSource={field.icon}
+                    placeholder={field.hint}
+                    value={formData[field.name]}
+                    onChangeText={(text) => setFormData({ ...formData, [field.name]: text })}
+                    onFocus={() => {
+                      if (field.emailValidation) setIsValidEmail(true);
+                      if (field.passwordField) setIsPasswordValid(true);
+                    }}
+                    onBlur={() => {
+                      if (field.emailValidation) setIsValidEmail(true); 
+                      if (field.passwordField) setIsPasswordValid(true); 
+                    }}
+                    editable={!isLoading}
+                    secureTextEntry={field.secure}
+                  />
+                </View>
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+
+        {/* Footer Section */}
+        <View style={styles.footer}>
+          <View style={styles.actionButtons}>
+            <CustomButton
+              onPress={doRegister}
+              disabled={!isValidEmail || !passwordsMatch || isLoading}
+              style={styles.submitButton}
+            >
+              {t('Register')}
+            </CustomButton>
+
+            <TouchableOpacity 
+              onPress={login} 
+              style={styles.loginLink}
+            >
+              <CustomText style={styles.loginLabel}>
+                {t('Already have an account')}
+              </CustomText>
+            </TouchableOpacity>
+          </View>
+
+          <Intelgx style={styles.logo} />
+        </View>
+
+        {isLoading && (
+          <View style={styles.loadingOverlay}>
+            <ActivityIndicator color="#4332FF" size="large" />
+          </View>
+        )}
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  page: {
+  mainContainer: {
     flex: 1,
+    backgroundColor: '#F5F6FA',
+  },
+  headerSection: {
+    flex: 1.5,
+    backgroundColor: '#4332FF',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+  contentWrapper: {
+    flex: 8.5,
+    position: 'relative',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  formSection: {
+    paddingHorizontal: 20,
+    paddingTop: 24,
+    paddingBottom: 20,
+  },
+  inputsGroup: {
+    gap: 16,
+  },
+  inputWrapper: {
+    borderRadius: 12,
+
+  },
+  footer: {
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 20,
+    paddingVertical: 16, // Reduced from 24
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -3,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4.65,
+    elevation: 6,
+  },
+  actionButtons: {
+    gap: 8, // Reduced from 16
+    marginBottom: 10, // Reduced from 20
+  },
+  submitButton: {
+    backgroundColor: '#4332FF',
+    borderRadius: 12,
+    paddingVertical: 16,
+  },
+  loginLink: {
     alignItems: 'center',
-    justifyContent: 'center',
-  },  
-  title: {
-    fontSize: 30,
-    color: 'white',
-  },
-  register: {
-    width: '90%',
-    alignItems: 'center',
-  },
-  inputField: {
-    width: '100%',
-    borderRadius: 10,
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: '#ffffffe1',
-  },
-  input: {
-    fontSize: 16,
-    color: '#000',
-  },
-  validEmail: {
-    borderColor: '#18e618',
-    borderWidth: 3,
-  },
-  invalidEmail: {
-    borderColor: '#ff6f6f',
-    borderWidth: 3,
-  },
-  validPassword: {
-    borderColor: '#18e618',
-    borderWidth: 3,
-  },
-  invalidPassword: {
-    borderColor: '#ff6f6f',
-    borderWidth: 3,
+    paddingVertical: 8,
   },
   loginLabel: {
+    color: '#4332FF',
     fontSize: 15,
-    padding: 10,
-    color: 'white',
+    fontWeight: '600',
   },
-  activityIndicator: {
-    marginTop: 20,
+  logoWrapper: {
+    alignItems: 'center',
+    marginTop: 16,
+  },
+  logo: {
+    height: 30, // Add specific height for logo
+  },
+  loadingOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(255,255,255,0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 999,
   },
 });
 

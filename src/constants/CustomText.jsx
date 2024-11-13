@@ -35,17 +35,23 @@ const getStyleProperty = (style, property) => {
   return style[property] || null;
 };
 
-const Text = React.forwardRef(({ style, ...props }, ref) => {
+const Text = React.forwardRef(({ 
+  style, 
+  variant = 'body',
+  color,
+  center,
+  ...props 
+}, ref) => {
   const weight = getStyleProperty(style, 'fontWeight') || 'medium';
   const fontFamily = fontConfig[weight.toLowerCase()] || 'Tajawal-Medium';
 
   const finalStyle = [
     styles.defaultText,
+    styles[variant],
     { fontFamily },
-    // حذف fontWeight من الـ style لمنع التداخل
-    Array.isArray(style) 
-      ? style.map(s => ({ ...s, fontWeight: undefined }))
-      : { ...style, fontWeight: undefined }
+    center && styles.center,
+    color && { color },
+    style
   ];
 
   return <RNText ref={ref} style={finalStyle} {...props} />;
@@ -53,7 +59,38 @@ const Text = React.forwardRef(({ style, ...props }, ref) => {
 
 const styles = StyleSheet.create({
   defaultText: {
-    // الأنماط الافتراضية هنا
+    color: 'blue',
+    fontSize: 16,
+  },
+  center: {
+    textAlign: 'center',
+  },
+  h1: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    lineHeight: 40,
+  },
+  h2: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    lineHeight: 32,
+  },
+  h3: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    lineHeight: 28,
+  },
+  body: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  small: {
+    fontSize: 12,
+    lineHeight: 16,
   },
 });
 

@@ -183,3 +183,48 @@ To learn more about React Native, take a look at the following resources:
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source GitHub repository for React Native.
 
 Happy coding! 💻✨
+
+ LOG  [{"atype": 1, "qtype": 1}, {"atype": 1, "qtype": 1}, {"atype": 3, "qtype": 1}, {"atype": 3, "qtype": 1}, {"atype": 1, "qtype": 1}, {"atype": 1, "qtype": 1}, {"atype": 4, "qtype": 1}]
+ LOG  https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=6496866f4911c0c31ca3b956e3e99b74&wsfunction=mod_quiz_process_attempt&moodlewsrestformat=json
+ LOG  === نتائج الاختبار ===
+ LOG  السؤال 1: 1
+ LOG  الجواب 1: 1
+ LOG  السؤال 2: 1
+ LOG  الجواب 2: 1
+ LOG  السؤال 3: 1
+ LOG  الجواب 3: 3
+ LOG  السؤال 4: 1
+ LOG  الجواب 4: 3
+ LOG  السؤال 5: 1
+ LOG  الجواب 5: 1
+ LOG  السؤال 6: 1
+ LOG  الجواب 6: 1
+ LOG  السؤال 7: 1
+ LOG  الجواب 7: 4
+ LOG  عدد الأسئلة الكلي: 7
+ LOG  عدد الإجابات المقدمة: 7
+ LOG  ====================
+ LOG  Response Status: 200
+ LOG  data {"errorcode": "invalidparameter", "exception": "invalid_parameter_exception", "message": "Invalid parameter value detected"}
+ LOG  استجابة الخادم: undefined
+ LOG  السؤال 1:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 1
+ LOG  السؤال 2:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 1
+ LOG  السؤال 3:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 3
+ LOG  السؤال 4:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 3
+ LOG  السؤال 5:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 1
+ LOG  السؤال 6:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 1
+ LOG  السؤال 7:
+ LOG  - نوع السؤال: 1
+ LOG  - الإجابة المختارة: 4

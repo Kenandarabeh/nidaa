@@ -58,9 +58,7 @@ export async function submitLessonAnswer(
   lessonId,
   pageId,
   answerId,
-  wstoken,
-  qtype,
-  answerformat,
+  wstoken
 ) {
   const params = {
     lessonid: lessonId,
@@ -71,8 +69,8 @@ export async function submitLessonAnswer(
         value: sesskey,
       },
       {
-        name: qtype,
-        value: answerformat,
+        name: "_qf__lesson_display_answer_form_multichoice_singleanswer",
+        value: "1",
       },
       {
         name: "answerid",
@@ -82,7 +80,7 @@ export async function submitLessonAnswer(
     // value : id
   };
 
-  //https://DeepSleepb.intelgx.com/webservice/rest/server.php?wstoken=eafdb482b43eb0a21d68be36f3cec5de&wsfunction=mod_lesson_process_page&moodlewsrestformat=json&lessonid=1&pageid=2&data[0][name]=sesskey&data[0][value]=Y9DY80ETus&data[1][name]=_qf__lesson_display_answer_form_multichoice_singleanswer&data[1][value]=1&data[2][name]=answerid&data[2][value]=4
+  //https://Moasalatib.intelgx.com/webservice/rest/server.php?wstoken=eafdb482b43eb0a21d68be36f3cec5de&wsfunction=mod_lesson_process_page&moodlewsrestformat=json&lessonid=1&pageid=2&data[0][name]=sesskey&data[0][value]=Y9DY80ETus&data[1][name]=_qf__lesson_display_answer_form_multichoice_singleanswer&data[1][value]=1&data[2][name]=answerid&data[2][value]=4
   const data = await moodleClient.sendRequest(
     "mod_lesson_process_page",
     params,
@@ -137,5 +135,12 @@ export async function getLessonPossibleJumps(lessonId, wstoken) {
   );
   return data;
 }
-// get content page =>https://DeepSleepb.intelgx.com//webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_get_lesson_contents&moodlewsrestformat=json&lessonid=1&pageid=3
+// get content page =>https://Moasalatib.intelgx.com//webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_get_lesson_contents&moodlewsrestformat=json&lessonid=1&pageid=3
 
+// get slots => https://Moasalatib.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_get_schedules_by_courseid&moodlewsrestformat=json&courseid=4
+
+
+// book to slot by id => https://Moasalatib.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_scheduler_book_by_slotid&moodlewsrestformat=json&slotid=70
+
+
+// cancel book slot by slot id =>https://Moasalatib.intelgx.com/webservice/rest/server.php?wstoken=346c489a3f79960b550b37bc1ff879c5&wsfunction=local_scheduler_cancel_booking&moodlewsrestformat=json&slotid=70

@@ -1,28 +1,26 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import 'react-native-gesture-handler';
+import { PaperProvider } from 'react-native-paper';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { I18nextProvider } from 'react-i18next';
 import store from './src/store';
 import AppNavigator from './src/routes/AppNavigator';
 import i18n from './src/plugins/i18n';
-import { ConfirmationProvider } from './src/components/commun/Confirm';
-
 
 const App = () => {
   return (
-    <SafeAreaProvider>
-          <I18nextProvider i18n={i18n}>
-
-    <Provider store={store}>
-      <ConfirmationProvider>
-            <AppNavigator />
-            </ConfirmationProvider>
-        </Provider>
-                  </I18nextProvider>
-
-    </SafeAreaProvider>
-
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaProvider>
+        <I18nextProvider i18n={i18n}>
+          <PaperProvider>
+          <Provider store={store}>
+              <AppNavigator />
+          </Provider>
+          </PaperProvider>
+        </I18nextProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 };
 
