@@ -1,6 +1,6 @@
-Welcome to **DeepSleep**! 🌙✨
+Welcome to **Nidaa**! 🚨 
 
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli). The project is named **DeepSleep** and is designed for sleep tracking. 🛌💤
+This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli). **Nidaa** is designed as an emergency response application to help government agencies assist people during critical situations like fires, natural disasters, and other emergencies. 🚒 🚑
 
 # Getting Started 🚀
 
@@ -100,7 +100,7 @@ Now that you have successfully run the app, let's modify it.
 
 ## Dependencies 📚
 
-This project uses the following libraries and technologies:
+This project uses the following libraries and technologies to provide robust emergency response features:
 
 ### Main Dependencies
 
@@ -158,6 +158,15 @@ yarn install
 ```
 
 This will install all the libraries listed in the `package.json` file.
+
+## About Nidaa 🆘
+
+Nidaa is an emergency response platform that:
+- Connects citizens with government emergency services
+- Provides real-time emergency alerts and notifications
+- Helps coordinate response efforts during critical situations
+- Enables quick reporting of emergencies
+- Facilitates communication between responders and citizens
 
 ## Congratulations! 🎉
 
